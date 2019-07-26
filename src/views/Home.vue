@@ -90,10 +90,11 @@ export default {
     }
   },
   mounted() {
+    // debugger
     this.$dd.ready(() => {
       this.getUserInfo()
     })
-    this.$http.get('/dingtalk/js_api_config')
+    this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
       .then(res => {
         let config = res.data
         this.$dd.config({
@@ -105,8 +106,13 @@ export default {
       }).catch(err => {
         alert('err')
       })
-    this.$dd.error(function(err) {
-      alert(JSON.stringify(err))
+    this.$dd.runtime.info({
+      onSuccess: function(info) {
+          alert('runtime info: ' + JSON.stringify(info));
+      },
+      onFail: function(err) {
+          alert('fail: ' + JSON.stringify(err));
+      }
     })
   }
 }
