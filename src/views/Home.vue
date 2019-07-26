@@ -42,7 +42,7 @@ export default {
       this.$dd.runtime.permission.requestAuthCode({
         corpId,
         onSuccess: res => {
-          alert(res.data)
+          alert(res)
           console.log(res, 'success')
         },
         onFail : err => {
