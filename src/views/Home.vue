@@ -5,6 +5,7 @@
         收件箱
       </div>
     </div> -->
+
     <div class="bottom">
       <a-icon @click="showDrawer" type="menu-unfold" style="color: #1FAFFF;font-size: 25px;" />
       <a-icon type="form" style="color: #1FAFFF;font-size: 25px;" />
@@ -99,15 +100,15 @@ export default {
   },
   mounted() {
     this.$dd.ready(() => {
-      this.$dd.runtime.info({
-        onSuccess: function(info) {
-          alert('runtime info: ' + JSON.stringify(info));
-        },
-        onFail: function(err) {
-          alert('fail: ' + JSON.stringify(err));
-        }
-      })
       this.getUserInfo()
+      // this.$dd.runtime.info({
+      //   onSuccess: function(info) {
+      //     alert('runtime info: ' + JSON.stringify(info));
+      //   },
+      //   onFail: function(err) {
+      //     alert('fail: ' + JSON.stringify(err));
+      //   }
+      // })
       // this.pullToRefresh()
     })
     this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
