@@ -90,7 +90,6 @@ export default {
     }
   },
   mounted() {
-    // debugger
     this.$dd.ready(() => {
       this.getUserInfo()
     })
@@ -113,6 +112,9 @@ export default {
       onFail: function(err) {
           alert('fail: ' + JSON.stringify(err));
       }
+    })
+    this.$dd.error(function(err) {
+      alert(JSON.stringify(err))
     })
   }
 }
