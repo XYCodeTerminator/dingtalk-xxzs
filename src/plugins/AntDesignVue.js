@@ -24,7 +24,7 @@ import {
   // Input,
   // InputNumber,
   Layout,
-  // List,
+  List,
   // LocaleProvider,
   // message,
   // Menu,
@@ -94,7 +94,7 @@ Vue.use(Icon)
 // Vue.use(Input)
 // Vue.use(InputNumber)
 Vue.use(Layout)
-// Vue.use(List)
+Vue.use(List)
 // Vue.use(LocaleProvider)
 // Vue.use(Menu)
 // Vue.use(Modal)

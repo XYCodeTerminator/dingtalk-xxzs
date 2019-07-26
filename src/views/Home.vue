@@ -1,8 +1,13 @@
 <template>
   <div class="home">
+    <div class="header">
+      <div class="title">
+        收件箱
+      </div>
+    </div>
     <div class="bottom">
       <a-icon @click="showDrawer" type="menu-unfold" style="color: #1FAFFF;font-size: 25px;" />
-      <a-icon type="edit" style="color: #1FAFFF;font-size: 25px;" />
+      <a-icon type="form" style="color: #1FAFFF;font-size: 25px;" />
     </div>
     <div class="spin">
       <a-spin class="spin" :spinning="spinning" tip="登录中..." size="large" />
@@ -17,9 +22,24 @@
         <img class="user-avatar" :src="userInfo && userInfo.avatar" alt="👮‍">
         <div class="user-name">{{userInfo && userInfo.userName}}</div>
       </div>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
+      <div class="list">
+        <div class="list-item">
+          <a-icon type="inbox" style="color: #1FAFFF;font-size: 18px;" />
+          <div class="label">收件箱</div>
+        </div>
+        <div class="list-item">
+          <a-icon type="check" style="color: #1FAFFF;font-size: 18px;" />
+          <div class="label">已发送</div>
+        </div>
+        <div class="list-item">
+          <a-icon type="delete" style="color: #1FAFFF;font-size: 18px;" />
+          <div class="label">已删除</div>
+        </div>
+        <div class="list-item">
+          <a-icon type="file" style="color: #1FAFFF;font-size: 18px;" />
+          <div class="label">草稿箱</div>
+        </div>
+      </div>
     </a-drawer>
   </div>
 </template>
@@ -72,6 +92,20 @@ export default {
 </script>
 
 <style lang="less" scoped>
+  .header {
+    position: fixed;
+    height: 44px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-bottom: solid 1px #eee;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+  }
   .bottom {
     position: fixed;
     height: 48px;
@@ -101,12 +135,25 @@ export default {
     flex-flow: row nowrap;
     align-items: center;
     .user-avatar {
-      width: 30px;
-      height: 30px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
     }
     .user-name {
       margin: 0 10px;
+    }
+  }
+  .list {
+    .list-item {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      height: 30px;
+      padding: 20px 0;
+      border-bottom: solid 1px #eee;
+      .label {
+        margin: 0 10px;
+      }
     }
   }
 </style>
