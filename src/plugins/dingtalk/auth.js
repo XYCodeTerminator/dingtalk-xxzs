@@ -1,5 +1,4 @@
-export default {
-  jsApiOAuth(jsApiList) {
+  export function jsApiOAuth(jsApiList) {
     return new Promise((resolve, reject) => {
       this.$http.get('/dingtalk/config')
       .then(res => {
@@ -17,4 +16,4 @@ export default {
       }).cath(err => reject(err))
     })
   }
-}
+

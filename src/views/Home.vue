@@ -92,13 +92,21 @@ export default {
   mounted() {
     this.$dd.ready(() => {
       this.getUserInfo()
-      this.$http.get('/dingtalk/js_api_config')
+    })
+    this.$http.get('/dingtalk/js_api_config')
       .then(res => {
-        alert(JSON.stringify(res.data))
-        
+        let config = res.data
+        this.$dd.config({
+          ...config,
+          jsApiList: [
+            'biz.contact.complexPicker',
+            'biz.contact.choose'          ]
+        })
       }).catch(err => {
         alert('err')
       })
+    this.$dd.error(function(err) {
+      alert(JSON.stringify(err))
     })
   }
 }
