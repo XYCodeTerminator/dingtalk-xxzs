@@ -83,17 +83,17 @@ export default {
         }
       });
     },
-    pullToRefresh() {
-      this.$dd.ui.pullToRefresh.enable({
-        onSuccess: () => {
-          alert('下拉刷新')
-        },
-        onFail: (err) => {
-          alert(JSON.stringify(err))
-          this.$dd.ui.pullToRefresh.stop()
-        }
-      })
-    }
+    // pullToRefresh() {
+    //   this.$dd.ui.pullToRefresh.enable({
+    //     onSuccess: () => {
+    //       alert('下拉刷新')
+    //     },
+    //     onFail: (err) => {
+    //       alert(JSON.stringify(err))
+    //       this.$dd.ui.pullToRefresh.stop()
+    //     }
+    //   })
+    // }
   },
   components: {
   },
@@ -108,7 +108,7 @@ export default {
         }
       })
       this.getUserInfo()
-      this.pullToRefresh()
+      // this.pullToRefresh()
     })
     this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
       .then(res => {
