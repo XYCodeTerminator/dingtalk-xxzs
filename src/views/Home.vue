@@ -91,14 +91,14 @@ export default {
   },
   mounted() {
     this.$dd.ready(() => {
-      this.$dd.runtime.info({
-        onSuccess: function(info) {
-          alert('runtime info: ' + JSON.stringify(info));
-        },
-        onFail: function(err) {
-          alert('fail: ' + JSON.stringify(err));
-        }
-      })
+      // this.$dd.runtime.info({
+      //   onSuccess: function(info) {
+      //     alert('runtime info: ' + JSON.stringify(info));
+      //   },
+      //   onFail: function(err) {
+      //     alert('fail: ' + JSON.stringify(err));
+      //   }
+      // })
       this.getUserInfo()
     })
     this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
