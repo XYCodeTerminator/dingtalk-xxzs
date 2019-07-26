@@ -103,6 +103,7 @@ export default {
     })
     this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
       .then(res => {
+        alert(JSON.stringify(res.data))
         let config = res.data
         this.$dd.config({
           ...config,
