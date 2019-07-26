@@ -63,10 +63,6 @@ export default {
     onClose() {
       this.visible = false
     },
-  },
-  components: {
-  },
-  methods: {
     getUserInfo() {
       this.spinning = true
       this.$dd.runtime.permission.requestAuthCode({
@@ -85,9 +81,10 @@ export default {
         onFail : err => {
           alert(JSON.stringify(err))
         }
-  
       });
     }
+  },
+  components: {
   },
   mounted() {
     this.$dd.ready(() => {
