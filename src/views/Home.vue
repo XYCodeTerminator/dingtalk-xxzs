@@ -96,38 +96,11 @@ export default {
     //   })
     // }
     chooseTo() {
-      this.$dd.ready(() => {
-        this.$dd.biz.contact.complexPicker({
-          title:"测试标题",            //标题
-          corpId,              //企业的corpId
-          multiple:true,            //是否多选
-          limitTips:"超出了",          //超过限定人数返回提示
-          maxUsers:1000,            //最大可选人数
-          pickedUsers:[],            //已选用户
-          pickedDepartments:[],          //已选部门
-          disabledUsers:[],            //不可选用户
-          disabledDepartments:[],        //不可选部门
-          requiredUsers:[],            //必选用户（不可取消选中状态）
-          requiredDepartments:[],        //必选部门（不可取消选中状态）
-          appId: 278037178,              //微应用的Id
-          permissionType:"GLOBAL",          //可添加权限校验，选人权限，目前只有GLOBAL这个参数
-          responseUserOnly:false,        //返回人，或者返回人和部门
-          startWithDepartmentId:0 ,   //仅支持0和-1
-          onSuccess: function(result) {
-            alert(JSON.stringify(result))
-              /**
-              {
-                  selectedCount:1,                              //选择人数
-                  users:[{"name":"","avatar":"","userid":""}]，//返回选人的列表，列表中的对象包含name（用户名），avatar（用户头像），emplId（用户工号）三个字段
-                  departments:[{"id":,"name":"","number":}]//返回已选部门列表，列表中每个对象包含id（部门id）、name（部门名称）、number（部门人数）
-              }
-              */
-          },
-          onFail : function(err) {
-            alert(JSON.stringify(err))
-          }
-        });
-      })
+      // this.$dd.ready(() => {
+      //   this.$dd.biz.contact.complexPicker({
+          
+      //   });
+      // })
     }
   },
   components: {
