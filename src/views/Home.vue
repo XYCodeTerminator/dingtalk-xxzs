@@ -1,14 +1,15 @@
 <template>
   <div class="home">
-    <div class="header">
+    <!-- <div class="header">
       <div class="title">
         收件箱
       </div>
-    </div>
+    </div> -->
     <div class="bottom">
       <a-icon @click="showDrawer" type="menu-unfold" style="color: #1FAFFF;font-size: 25px;" />
       <a-icon type="form" style="color: #1FAFFF;font-size: 25px;" />
     </div>
+    <div class="content">aaa</div>
     <div class="spin">
       <a-spin class="spin" :spinning="spinning" tip="登录中..." size="large" />
     </div>
@@ -65,8 +66,8 @@ export default {
   },
   components: {
   },
-  mounted() {
-    this.$dd.ready(() => {
+  methods: {
+    getUserInfo() {
       this.spinning = true
       this.$dd.runtime.permission.requestAuthCode({
         corpId,
@@ -85,27 +86,39 @@ export default {
           alert(JSON.stringify(err))
         }
   
-    });
+      });
+    }
+  },
+  mounted() {
+    this.$dd.ready(() => {
+      this.getUserInfo()
+      this.$http.get('/dingtalk/js_api_config')
+      .then(res => {
+        alert(JSON.stringify(res.data))
+        
+      }).catch(err => {
+        alert('err')
+      })
     })
   }
 }
 </script>
 
 <style lang="less" scoped>
-  .header {
-    position: fixed;
-    height: 44px;
-    width: 100%;
-    top: 0;
-    left: 0;
-    border-bottom: solid 1px #eee;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: bold;
-  }
+  // .header {
+  //   position: fixed;
+  //   height: 44px;
+  //   width: 100%;
+  //   top: 0;
+  //   left: 0;
+  //   border-bottom: solid 1px #eee;
+  //   display: flex;
+  //   flex-flow: row nowrap;
+  //   align-items: center;
+  //   justify-content: center;
+  //   font-size: 16px;
+  //   font-weight: bold;
+  // }
   .bottom {
     position: fixed;
     height: 48px;
@@ -118,6 +131,10 @@ export default {
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
+  }
+  .content {
+    // margin: 48px 0 0 0 ;
+
   }
   .spin {
     position: absolute;
