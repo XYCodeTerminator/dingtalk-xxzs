@@ -4,6 +4,9 @@
       <a-icon @click="showDrawer" type="menu-unfold" style="color: #1FAFFF;font-size: 25px;" />
       <a-icon type="edit" style="color: #1FAFFF;font-size: 25px;" />
     </div>
+    <div class="spin">
+      <a-spin class="spin" :spinning="spinning" size="large" />
+    </div>
     <a-drawer
       placement="left"
       :closable="false"
@@ -24,7 +27,8 @@ export default {
   name: 'home',
   data() {
     return {
-      visible: false
+      visible: false,
+      spinning: false
     }
   },
   methods: {
@@ -39,24 +43,21 @@ export default {
   },
   mounted() {
     this.$dd.ready(() => {
+      this.spinning = true
       this.$dd.runtime.permission.requestAuthCode({
         corpId,
         onSuccess: res => {
-          alert('success')
-          alert(res.code)
-          console.log(res)
           this.$http.post('/users/login', {
             authCode: res.code
           })
           .then(res => {
-            alert(res.data.userName)
+            this.spinning = false
           }).catch(err => {
-            console.log(err)
+            alert(JSON.stringify(err))
           })
         },
         onFail : err => {
-          alert('err')
-          console.log(err, 'err')
+          alert(JSON.stringify(err))
         }
   
     });
@@ -78,6 +79,17 @@ export default {
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
+  }
+  .spin {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    margin: auto;
   }
 </style>
 
