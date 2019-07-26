@@ -11,8 +11,8 @@ module.exports = {
     disableHostCheck: true,
     port: 8080,
     proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
+      '/': {
+        target: 'http://srvvks.natappfree.cc',
         ws: false,
         changeOrigin: true
       }

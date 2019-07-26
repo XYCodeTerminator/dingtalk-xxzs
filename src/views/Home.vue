@@ -42,11 +42,20 @@ export default {
       this.$dd.runtime.permission.requestAuthCode({
         corpId,
         onSuccess: res => {
-          alert(res)
-          console.log(res, 'success')
+          alert('success')
+          alert(res.code)
+          console.log(res)
+          this.$http.post('/users/login', {
+            authCode: res.code
+          })
+          .then(userInfo => {
+            alert(userInfo.userName)
+          }).catch(err => {
+            console.log(err)
+          })
         },
         onFail : err => {
-          alert(err)
+          alert('err')
           console.log(err, 'err')
         }
   
