@@ -49,7 +49,7 @@ export default {
             authCode: res.code
           })
           .then(userInfo => {
-            alert(userInfo.userName)
+            alert(JSON.stringify(userInfo))
           }).catch(err => {
             console.log(err)
           })
