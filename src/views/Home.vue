@@ -5,7 +5,7 @@
       <a-icon type="edit" style="color: #1FAFFF;font-size: 25px;" />
     </div>
     <div class="spin">
-      <a-spin class="spin" :spinning="spinning" size="large" />
+      <a-spin class="spin" :spinning="spinning" tip="登录中..." size="large" />
     </div>
     <a-drawer
       placement="left"
@@ -13,7 +13,10 @@
       @close="onClose"
       :visible="visible"
     >
-      <div slot="title">aaaa</div>
+      <div slot="title" class="user">
+        <img class="user-avatar" :src="userInfo && userInfo.avatar" alt="👮‍">
+        <div class="user-name">{{userInfo && userInfo.userName}}</div>
+      </div>
       <p>Some contents...</p>
       <p>Some contents...</p>
       <p>Some contents...</p>
@@ -28,7 +31,8 @@ export default {
   data() {
     return {
       visible: false,
-      spinning: false
+      spinning: false,
+      userInfo: null
     }
   },
   methods: {
@@ -52,6 +56,7 @@ export default {
           })
           .then(res => {
             this.spinning = false
+            this.userInfo = res.data
           }).catch(err => {
             alert(JSON.stringify(err))
           })
@@ -90,6 +95,19 @@ export default {
     height: 100px;
     text-align: center;
     margin: auto;
+  }
+  .user {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    .user-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+    .user-name {
+      margin: 0 10px;
+    }
   }
 </style>
 
