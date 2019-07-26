@@ -108,6 +108,7 @@ export default {
         this.$dd.config({
           ...config,
           jsApiList: [
+            'runtime.info',
             'biz.contact.complexPicker',
             'biz.contact.choose'          ]
         })
