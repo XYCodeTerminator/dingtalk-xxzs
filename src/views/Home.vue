@@ -82,25 +82,35 @@ export default {
           alert(JSON.stringify(err))
         }
       });
+    },
+    pullToRefresh() {
+      this.$dd.ui.pullToRefresh.enable({
+        onSuccess: () => {
+          alert('下拉刷新')
+        },
+        onFail: () => {
+          this.$dd.ui.pullToRefresh.stop()
+        }
+      })
     }
   },
   components: {
   },
   mounted() {
     this.$dd.ready(() => {
-      // this.$dd.runtime.info({
-      //   onSuccess: function(info) {
-      //     alert('runtime info: ' + JSON.stringify(info));
-      //   },
-      //   onFail: function(err) {
-      //     alert('fail: ' + JSON.stringify(err));
-      //   }
-      // })
+      this.$dd.runtime.info({
+        onSuccess: function(info) {
+          alert('runtime info: ' + JSON.stringify(info));
+        },
+        onFail: function(err) {
+          alert('fail: ' + JSON.stringify(err));
+        }
+      })
       this.getUserInfo()
+      this.pullToRefresh()
     })
     this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
       .then(res => {
-        alert(JSON.stringify(res.data))
         let config = res.data
         this.$dd.config({
           ...config,
