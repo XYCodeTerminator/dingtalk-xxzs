@@ -48,8 +48,8 @@ export default {
           this.$http.post('/users/login', {
             authCode: res.code
           })
-          .then(userInfo => {
-            alert(JSON.stringify(userInfo))
+          .then(res => {
+            alert(res.data.userName)
           }).catch(err => {
             console.log(err)
           })
