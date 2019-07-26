@@ -88,7 +88,8 @@ export default {
         onSuccess: () => {
           alert('下拉刷新')
         },
-        onFail: () => {
+        onFail: (err) => {
+          alert(JSON.stringify(err))
           this.$dd.ui.pullToRefresh.stop()
         }
       })
