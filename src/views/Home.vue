@@ -72,7 +72,7 @@
           <a-icon @click="chooseTo" type="user-add" style="color: #1FAFFF;font-size: 20px;" />
         </div>
         <div class="title">
-          <div class="title-label">主题：</div>
+          <div class="title-label">主&nbsp;&nbsp;&nbsp;题：</div>
           <input type="text" :value="title">
         </div>
         <div class="new-msg-content">
@@ -297,6 +297,7 @@ export default {
   }
 
   .new-msg {
+    background-color: #bfa;
     position: fixed;
     left: 0; right: 0; top: 0; bottom: 0;
     overflow: auto;
@@ -305,7 +306,6 @@ export default {
       display: flex;
       flex-flow: row nowrap;
       align-items: center;
-      // background-color: #bfa;
       padding: 10px 0;
       border-bottom: 1px solid #eee;
       input {
