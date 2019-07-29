@@ -25,21 +25,9 @@
         <div class="user-name">{{userInfo && userInfo.userName}}</div>
       </div>
       <div class="list">
-        <div class="list-item">
-          <a-icon type="inbox" style="color: #1FAFFF;font-size: 18px;" />
-          <div class="label">收件箱</div>
-        </div>
-        <div class="list-item">
-          <a-icon type="check" style="color: #1FAFFF;font-size: 18px;" />
-          <div class="label">已发送</div>
-        </div>
-        <div class="list-item">
-          <a-icon type="delete" style="color: #1FAFFF;font-size: 18px;" />
-          <div class="label">已删除</div>
-        </div>
-        <div class="list-item">
-          <a-icon type="file" style="color: #1FAFFF;font-size: 18px;" />
-          <div class="label">草稿箱</div>
+        <div class="list-item" v-for="(item, i) in listItems" :key="i" >
+          <a-icon :type="item.icon" style="color: #1FAFFF;font-size: 18px;" />
+          <div class="label">{{item.label}}</div>
         </div>
       </div>
     </a-drawer>
@@ -50,21 +38,27 @@
 import { corpId } from '@/config/dingtalk.config'
 export default {
   name: 'home',
-  data() {
+  data () {
     return {
       visible: false,
       spinning: false,
-      userInfo: null
+      userInfo: null,
+      listItems: [
+        { label: '收件箱', icon: 'inbox' },
+        { label: '已发送', icon: 'check' },
+        { label: '已删除', icon: 'delete' },
+        { label: '草稿箱', icon: 'file' },
+      ]
     }
   },
   methods: {
-    showDrawer() {
+    showDrawer () {
       this.visible = true
     },
-    onClose() {
+    onClose () {
       this.visible = false
     },
-    getUserInfo() {
+    getUserInfo () {
       this.spinning = true
       this.$dd.runtime.permission.requestAuthCode({
         corpId,
@@ -72,17 +66,17 @@ export default {
           this.$http.post('/users/login', {
             authCode: res.code
           })
-          .then(res => {
-            this.spinning = false
-            this.userInfo = res.data
-          }).catch(err => {
-            alert(JSON.stringify(err))
-          })
+            .then(res => {
+              this.spinning = false
+              this.userInfo = res.data
+            }).catch(err => {
+              alert(JSON.stringify(err))
+            })
         },
-        onFail : err => {
+        onFail: err => {
           alert(JSON.stringify(err))
         }
-      });
+      })
     },
     // pullToRefresh() {
     //   this.$dd.ui.pullToRefresh.enable({
@@ -95,17 +89,17 @@ export default {
     //     }
     //   })
     // }
-    chooseTo() {
+    chooseTo () {
       // this.$dd.ready(() => {
       //   this.$dd.biz.contact.complexPicker({
-          
+
       //   });
       // })
     }
   },
   components: {
   },
-  mounted() {
+  mounted () {
     this.$dd.ready(() => {
       this.getUserInfo()
       // this.$dd.runtime.info({
@@ -126,12 +120,12 @@ export default {
           jsApiList: [
             'runtime.info',
             'biz.contact.complexPicker',
-            'biz.contact.choose'          ]
+            'biz.contact.choose' ]
         })
       }).catch(err => {
         alert('err')
       })
-    this.$dd.error(function(err) {
+    this.$dd.error(function (err) {
       alert(JSON.stringify(err))
     })
   }
@@ -208,4 +202,3 @@ export default {
     }
   }
 </style>
-

@@ -54,7 +54,7 @@ import {
   // Mention,
   // Upload,
   // version,
-  Drawer,
+  Drawer
   // Skeleton,
   // Comment,
   // ConfigProvider

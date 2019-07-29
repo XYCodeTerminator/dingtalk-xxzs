@@ -1,6 +1,6 @@
-  export function jsApiOAuth(jsApiList) {
-    return new Promise((resolve, reject) => {
-      this.$http.get('/dingtalk/config')
+export function jsApiOAuth (jsApiList) {
+  return new Promise((resolve, reject) => {
+    this.$http.get('/dingtalk/config')
       .then(res => {
         let data = res.data
         const config = {
@@ -11,9 +11,8 @@
           signature: data.signature || '',
           jsApiList: jsApiList || []
         }
-        
+
         resolve(config)
       }).cath(err => reject(err))
-    })
-  }
-
+  })
+}

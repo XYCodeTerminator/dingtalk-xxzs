@@ -12,10 +12,10 @@ module.exports = {
     port: 8080,
     proxy: {
       '/': {
-        target: 'http://srvvks.natappfree.cc',
+        target: 'http://jmie9w.natappfree.cc',
         ws: false,
         changeOrigin: true
       }
     }
   }
-};
+}
