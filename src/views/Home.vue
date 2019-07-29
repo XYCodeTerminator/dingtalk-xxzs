@@ -167,6 +167,12 @@ export default {
         status: 'error',
         response: 'Server Error 500', // custom error message to show
         url: 'http://www.baidu.com/zzz.png',
+      }, {
+        uid: '6',
+        name: 'zzz.png',
+        status: 'error',
+        response: 'Server Error 500', // custom error message to show
+        url: 'http://www.baidu.com/zzz.png',
       }],
     }
   },
@@ -298,20 +304,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  // .header {
-  //   position: fixed;
-  //   height: 44px;
-  //   width: 100%;
-  //   top: 0;
-  //   left: 0;
-  //   border-bottom: solid 1px #eee;
-  //   display: flex;
-  //   flex-flow: row nowrap;
-  //   align-items: center;
-  //   justify-content: center;
-  //   font-size: 16px;
-  //   font-weight: bold;
-  // }
   .bottom {
     position: fixed;
     height: 48px;
@@ -384,6 +376,7 @@ export default {
   }
 
   .new-msg {
+    overflow: hidden !important;
     position: absolute;
     left: 0; right: 0; top: 0; bottom: 0;
     overflow: auto;
@@ -456,10 +449,16 @@ export default {
       // overflow: auto;
       // -webkit-overflow-scrolling: touch;
       position: relative;
+      /deep/ .ant-upload-btn {
+        height: 25px;
+      }
       /deep/ .ant-upload-list {
         overflow: auto;
         -webkit-overflow-scrolling: touch;
-        height: 100%;
+        height: calc(100% - 25px);
+        &::-webkit-scrollbar {
+          display: none;
+        }
       }
       /deep/ .ant-upload-list-item .anticon-close {
         font-size: 12px;
