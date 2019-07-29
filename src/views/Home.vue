@@ -134,6 +134,7 @@ export default {
         { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' }
       ],
       toUserName: '',
+      toUsers: [],
       title: '',
       content: '',
       defaultFileList: [{
@@ -233,6 +234,13 @@ export default {
           // startWithDepartmentId: 0, 
           onSuccess: function(result) {
             alert(JSON.stringify(result))
+            if (res.users) {
+              let toUsers = res.users
+              this.toUsers = toUsers
+              let toUserName = ''
+              toUserName = toUsers.map(user => user.name).join(',')
+              this.toUserName = toUserName
+            }
           },
           onFail : function(err) {
             alert(JSON.stringify(err))
