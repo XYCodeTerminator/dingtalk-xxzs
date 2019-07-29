@@ -454,7 +454,7 @@ export default {
       }
       /deep/ .ant-upload-list {
         overflow: auto;
-        -webkit-overflow-scrolling: touch;
+        -webkit-overflow-scrolling: auto;
         height: calc(100% - 25px);
         &::-webkit-scrollbar {
           display: none;
