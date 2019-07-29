@@ -66,6 +66,11 @@
       :visible="newMsgVisible"
     >
       <div class="new-msg">
+        <div class="new-msg-nav">
+          <a class="cancelSend">取消</a>
+          <div class="nav-title">发消息</div>
+          <a class="send" :disabled="true">发送</a>
+        </div>
         <div class="to">
           <div class="to-name">收信人：</div>
           <input type="text" :value="toUserName">
@@ -89,10 +94,6 @@
             :defaultFileList="defaultFileList">
           </a-upload>
         </div>
-        <div class="new-msg-bottom">
-
-        </div>
-        <a-button style="margin-top: 30px" @click="cancelNewMsg">取消</a-button>
       </div>
     </a-drawer>
   </div>
@@ -147,17 +148,17 @@ export default {
         status: 'done',
         url: 'http://www.baidu.com/yyy.png',
       }, {
-        uid: '2',
-        name: 'yyy.png',
-        status: 'done',
-        url: 'http://www.baidu.com/yyy.png',
-      }, {
-        uid: '2',
-        name: 'yyy.png',
-        status: 'done',
-        url: 'http://www.baidu.com/yyy.png',
-      }, {
         uid: '3',
+        name: 'yyy.png',
+        status: 'done',
+        url: 'http://www.baidu.com/yyy.png',
+      }, {
+        uid: '4',
+        name: 'yyy.png',
+        status: 'done',
+        url: 'http://www.baidu.com/yyy.png',
+      }, {
+        uid: '5',
         name: 'zzz.png',
         status: 'error',
         response: 'Server Error 500', // custom error message to show
@@ -205,7 +206,7 @@ export default {
       }, 500);
       this.newMsgVisible = true
     },
-    cancelNewMsg() {
+    cancelSend() {
       this.newMsgVisible = false
       this.isInNewMsg = false
     },
@@ -293,7 +294,7 @@ export default {
     padding: 44px 20px 58px 20px;
     .content-header {
       border-bottom: solid 1px #eee;
-      font-size: 18px;
+      font-size: 16px;
       line-height: 44px;
       font-weight: bold;
       position: fixed;
@@ -349,11 +350,25 @@ export default {
     left: 0; right: 0; top: 0; bottom: 0;
     overflow: auto;
     padding: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    .new-msg-nav {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: center;
+      // border-bottom: solid 1px #eee;
+      padding: 10px 0;
+      .nav-title {
+        font-size: 16px;
+        font-weight: 400;
+      }
+    }
     .to {
       display: flex;
       flex-flow: row nowrap;
       align-items: center;
-      padding: 10px 0;
+      padding: 10px 5px;
       border-bottom: 1px solid #eee;
       input {
         flex: 1 1 auto;
@@ -365,7 +380,7 @@ export default {
       display: flex;
       flex-flow: row nowrap;
       align-items: center;
-      padding: 10px 0;
+      padding: 10px 5px;
       border-bottom: 1px solid #eee;
       input {
         flex: 1 1 auto;
@@ -374,10 +389,12 @@ export default {
       }
     }
     .new-msg-content {
+      flex: 1 1 auto;
       border-bottom: 1px solid #eee;
+      padding: 10px 5px;
       textarea {
         width: 100%;
-        min-height: 230px;
+        height: 100%;
         border: none;
         outline: none;
         resize: none;
@@ -392,11 +409,11 @@ export default {
       padding: 5px 10px;
     }
     .upload-files {
-      border-bottom: 1px solid #eee;
       padding: 10px;
       max-height: 100px;
       min-height: 50px;
       overflow: auto;
+      -webkit-overflow-scrolling: touch;
     }
   }
 </style>
