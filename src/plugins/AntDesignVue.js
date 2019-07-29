@@ -8,9 +8,9 @@ import {
   // BackTop,
   // Badge,
   // Breadcrumb,
-  // Button,
+  Button,
   // Calendar,
-  // Card,
+  Card,
   // Collapse,
   // Carousel,
   // Cascader,
@@ -77,9 +77,9 @@ import {
 // Vue.use(BackTop)
 // Vue.use(Badge)
 // Vue.use(Breadcrumb)
-// Vue.use(Button)
+Vue.use(Button)
 // Vue.use(Calendar)
-// Vue.use(Card)
+Vue.use(Card)
 // Vue.use(Collapse)
 // Vue.use(Carousel)
 // Vue.use(Cascader)

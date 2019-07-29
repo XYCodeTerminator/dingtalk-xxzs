@@ -5,12 +5,37 @@
         收件箱
       </div>
     </div> -->
-    <div @click="chooseTo">选择联系人</div>
+    <!-- <div @click="chooseTo">选择联系人</div> -->
     <div class="bottom">
       <a-icon @click="showDrawer" type="menu-unfold" style="color: #1FAFFF;font-size: 25px;" />
-      <a-icon type="form" style="color: #1FAFFF;font-size: 25px;" />
+      <a-icon @click="newMsg" type="form" style="color: #1FAFFF;font-size: 25px;" />
     </div>
-    <div class="content">aaa</div>
+
+    <div class="content">
+      <div class="content-header">收件箱</div>
+      <a-list
+        class="msg-list"
+        :loading="false"
+        itemLayout="horizontal"
+        :dataSource="msgList"
+      >
+        <div v-if="showLoadingMore" slot="loadMore" :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }">
+          <a-spin v-if="loadingMore" />
+          <a-button v-else @click="onLoadMore" size="small">加载更多</a-button>
+        </div>
+        <a-list-item slot="renderItem" slot-scope="msg, index">
+          <a slot="actions">删除</a>
+          <a-list-item-meta
+            :description="msg.content.substring(0, 18)"
+          >
+            <div slot="title">{{msg.from}}</div>
+            <!-- <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /> -->
+          </a-list-item-meta>
+          <!-- <div>content</div> -->
+        </a-list-item>
+      </a-list>
+    </div>
+
     <div class="spin">
       <a-spin class="spin" :spinning="spinning" tip="登录中..." size="large" />
     </div>
@@ -31,6 +56,19 @@
         </div>
       </div>
     </a-drawer>
+
+    <a-drawer
+      height="100%"
+      placement="bottom"
+      :closable="false"
+      @close="onClose"
+      :visible="newMsgVisible"
+    >
+      <div class="new-msg">
+        aaaaa
+        <a-button @click="newMsgVisible = false">取消</a-button>
+      </div>
+    </a-drawer>
   </div>
 </template>
 
@@ -40,6 +78,7 @@ export default {
   name: 'home',
   data () {
     return {
+      newMsgVisible: false,
       visible: false,
       spinning: false,
       userInfo: null,
@@ -48,7 +87,24 @@ export default {
         { label: '已发送', icon: 'check' },
         { label: '已删除', icon: 'delete' },
         { label: '草稿箱', icon: 'file' },
-      ]
+      ],
+      loading: true,
+      loadingMore: false,
+      showLoadingMore: true,
+      msgList: [
+        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
+        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
+        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
+        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
+        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
+        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
+        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
+        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
+        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
+        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
+        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
+        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' }
+      ],
     }
   },
   methods: {
@@ -57,6 +113,7 @@ export default {
     },
     onClose () {
       this.visible = false
+      this.newMsgVisible = false
     },
     getUserInfo () {
       this.spinning = true
@@ -78,17 +135,18 @@ export default {
         }
       })
     },
-    // pullToRefresh() {
-    //   this.$dd.ui.pullToRefresh.enable({
-    //     onSuccess: () => {
-    //       alert('下拉刷新')
-    //     },
-    //     onFail: (err) => {
-    //       alert(JSON.stringify(err))
-    //       this.$dd.ui.pullToRefresh.stop()
-    //     }
-    //   })
-    // }
+    fetchMsgList() {
+
+    },
+    onLoadMore () {
+
+    },
+    newMsg() {
+      this.newMsgVisible = true
+    },
+    cancelnewMsg() {
+      this.newMsgVisible = false
+    },
     chooseTo () {
       // this.$dd.ready(() => {
       //   this.$dd.biz.contact.complexPicker({
@@ -159,10 +217,26 @@ export default {
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
+    z-index: 1000;
+    background-color: #fff;
   }
   .content {
     // margin: 48px 0 0 0 ;
-
+    padding: 44px 20px 58px 20px;
+    .content-header {
+      border-bottom: solid 1px #eee;
+      font-size: 18px;
+      line-height: 44px;
+      font-weight: bold;
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 44px;
+      padding: 0 20px;
+      background-color: #fff;
+      z-index: 1000;
+    }
   }
   .spin {
     position: absolute;
@@ -200,5 +274,8 @@ export default {
         margin: 0 10px;
       }
     }
+  }
+
+  .new-msg {
   }
 </style>
