@@ -453,8 +453,18 @@ export default {
       flex: 1 1 auto;
       padding: 10px;
       max-height: 150px;
-      overflow: auto;
-      -webkit-overflow-scrolling: touch;
+      // overflow: auto;
+      // -webkit-overflow-scrolling: touch;
+      position: relative;
+      /deep/ .ant-upload-list {
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        height: 100%;
+      }
+      /deep/ .ant-upload-list-item .anticon-close {
+        font-size: 12px;
+        opacity: 1;
+      }
     }
   }
 </style>
