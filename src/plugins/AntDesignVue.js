@@ -52,7 +52,7 @@ import {
   // Timeline,
   // Tooltip,
   // Mention,
-  // Upload,
+  Upload,
   // version,
   Drawer
   // Skeleton,
@@ -119,7 +119,7 @@ Vue.use(Spin)
 // Vue.use(TimePicker)
 // Vue.use(Timeline)
 // Vue.use(Tooltip)
-// Vue.use(Upload)
+Vue.use(Upload)
 // Vue.use(Skeleton)
 // Vue.use(Comment)
 // Vue.use(ConfigProvider)

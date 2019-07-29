@@ -76,7 +76,18 @@
           <input type="text" :value="title">
         </div>
         <div class="new-msg-content">
-          <textarea placeholder="请输入正文..." />
+          <textarea placeholder="请输入正文..." :value="content" />
+        </div>
+        <div class="new-msg-buttons">
+          <div class="upload-btn">
+            <a-icon @click="uploadFile" type="paper-clip" style="color: #1FAFFF;font-size: 22px;" />
+          </div>
+        </div>
+        <div class="upload-files">
+          <a-upload 
+            action="https://www.mocky.io/v2/5cc8019d300000980a055e76" 
+            :defaultFileList="defaultFileList">
+          </a-upload>
         </div>
         <div class="new-msg-bottom">
 
@@ -122,7 +133,36 @@ export default {
         { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' }
       ],
       toUserName: '',
-      title: ''
+      title: '',
+      content: '',
+      defaultFileList: [{
+        uid: '1',
+        name: 'xxx.png',
+        status: 'done',
+        response: 'Server Error 500', // custom error message to show
+        url: 'http://www.baidu.com/xxx.png',
+      }, {
+        uid: '2',
+        name: 'yyy.png',
+        status: 'done',
+        url: 'http://www.baidu.com/yyy.png',
+      }, {
+        uid: '2',
+        name: 'yyy.png',
+        status: 'done',
+        url: 'http://www.baidu.com/yyy.png',
+      }, {
+        uid: '2',
+        name: 'yyy.png',
+        status: 'done',
+        url: 'http://www.baidu.com/yyy.png',
+      }, {
+        uid: '3',
+        name: 'zzz.png',
+        status: 'error',
+        response: 'Server Error 500', // custom error message to show
+        url: 'http://www.baidu.com/zzz.png',
+      }],
     }
   },
   methods: {
@@ -175,6 +215,9 @@ export default {
 
       //   });
       // })
+    },
+    uploadFile() {
+
     }
   },
   components: {
@@ -337,8 +380,23 @@ export default {
         min-height: 230px;
         border: none;
         outline: none;
+        resize: none;
         padding: 20px;
       }
+    }
+    .new-msg-buttons {
+      border-bottom: 1px solid #eee;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      padding: 5px 10px;
+    }
+    .upload-files {
+      border-bottom: 1px solid #eee;
+      padding: 10px;
+      max-height: 100px;
+      min-height: 50px;
+      overflow: auto;
     }
   }
 </style>
