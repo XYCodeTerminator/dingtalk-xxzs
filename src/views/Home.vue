@@ -58,7 +58,6 @@
     </a-drawer>
 
     <a-drawer
-      wrapStyle="position: fixed; left: 0; right: 0; top: 0; bottom: 0;"
       height="100%"
       placement="bottom"
       :closable="false"
@@ -298,7 +297,7 @@ export default {
 
   .new-msg {
     background-color: #bfa;
-    position: fixed;
+    position: absolute;
     left: 0; right: 0; top: 0; bottom: 0;
     overflow: auto;
     padding: 10px;
