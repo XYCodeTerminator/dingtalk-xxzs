@@ -58,6 +58,7 @@
     </a-drawer>
 
     <a-drawer
+      wrapStyle="position: fixed; left: 0; right: 0; top: 0; bottom: 0;"
       height="100%"
       placement="bottom"
       :closable="false"
@@ -76,6 +77,9 @@
         </div>
         <div class="new-msg-content">
           <textarea placeholder="请输入正文..." />
+        </div>
+        <div class="new-msg-bottom">
+
         </div>
         <a-button style="margin-top: 30px" @click="newMsgVisible = false">取消</a-button>
       </div>
@@ -293,6 +297,10 @@ export default {
   }
 
   .new-msg {
+    position: fixed;
+    left: 0; right: 0; top: 0; bottom: 0;
+    overflow: auto;
+    padding: 10px;
     .to {
       display: flex;
       flex-flow: row nowrap;
