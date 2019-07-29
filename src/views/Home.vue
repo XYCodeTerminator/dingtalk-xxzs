@@ -83,15 +83,18 @@
         <div class="new-msg-content">
           <textarea placeholder="请输入正文..." v-model="content" />
         </div>
-        <div class="new-msg-buttons">
+        <!-- <div class="new-msg-buttons">
           <div class="upload-btn">
             <a-icon @click="uploadFile" type="paper-clip" style="color: #1FAFFF;font-size: 22px;" />
           </div>
-        </div>
+        </div> -->
         <div class="upload-files">
           <a-upload 
             action="https://www.mocky.io/v2/5cc8019d300000980a055e76" 
             :defaultFileList="defaultFileList">
+            <div>
+              <a-icon @click="uploadFile" type="paper-clip" style="color: #1FAFFF;font-size: 22px;" />
+            </div>
           </a-upload>
         </div>
       </div>
@@ -210,6 +213,10 @@ export default {
     cancelSend() {
       this.newMsgVisible = false
       this.isInNewMsg = false
+      this.toUserName = ''
+      this.toUsers = []
+      this.title = ''
+      this.content = ''
     },
     send() {
 
@@ -445,7 +452,7 @@ export default {
     .upload-files {
       flex: 1 1 auto;
       padding: 10px;
-      max-height: 100px;
+      max-height: 150px;
       overflow: auto;
       -webkit-overflow-scrolling: touch;
     }
