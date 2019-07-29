@@ -11,7 +11,7 @@
       <a-icon @click="newMsg" type="form" style="color: #1FAFFF;font-size: 25px;" />
     </div>
 
-    <div class="content">
+    <div class="content" v-if="!isInNewMsg">
       <div class="content-header">收件箱</div>
       <a-list
         class="msg-list"
@@ -58,6 +58,7 @@
     </a-drawer>
 
     <a-drawer
+      ref="newMsg"
       height="100%"
       placement="bottom"
       :closable="false"
@@ -72,7 +73,7 @@
         </div>
         <div class="title">
           <div class="title-label">主&nbsp;&nbsp;&nbsp;题：</div>
-          <input type="text" :value="title">
+          <input @blur="fixPositionBug" type="text" :value="title">
         </div>
         <div class="new-msg-content">
           <textarea placeholder="请输入正文..." />
@@ -92,6 +93,7 @@ export default {
   name: 'home',
   data () {
     return {
+      isInNewMsg: false,
       newMsgVisible: false,
       visible: false,
       spinning: false,
@@ -152,16 +154,23 @@ export default {
       })
     },
     fetchMsgList() {
-
+      
     },
     onLoadMore () {
 
     },
     newMsg() {
+      this.isInNewMsg = true
       this.newMsgVisible = true
     },
     cancelnewMsg() {
       this.newMsgVisible = false
+      this.isInNewMsg = false
+    },
+    fixPositionBug() {
+      // debugger
+      // console.log('newMsg:', this.$refs.newMsg)
+      // this.$refs.newMsg.$el.scrollTo(0, 0)
     },
     chooseTo () {
       // this.$dd.ready(() => {
