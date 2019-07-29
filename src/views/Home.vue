@@ -73,7 +73,7 @@
         </div>
         <div class="title">
           <div class="title-label">主&nbsp;&nbsp;&nbsp;题：</div>
-          <input @blur="fixPositionBug" type="text" :value="title">
+          <input type="text" :value="title">
         </div>
         <div class="new-msg-content">
           <textarea placeholder="请输入正文..." />
@@ -81,7 +81,7 @@
         <div class="new-msg-bottom">
 
         </div>
-        <a-button style="margin-top: 30px" @click="newMsgVisible = false">取消</a-button>
+        <a-button style="margin-top: 30px" @click="cancelNewMsg">取消</a-button>
       </div>
     </a-drawer>
   </div>
@@ -163,14 +163,9 @@ export default {
       this.isInNewMsg = true
       this.newMsgVisible = true
     },
-    cancelnewMsg() {
+    cancelNewMsg() {
       this.newMsgVisible = false
       this.isInNewMsg = false
-    },
-    fixPositionBug() {
-      // debugger
-      // console.log('newMsg:', this.$refs.newMsg)
-      // this.$refs.newMsg.$el.scrollTo(0, 0)
     },
     chooseTo () {
       // this.$dd.ready(() => {
@@ -305,7 +300,6 @@ export default {
   }
 
   .new-msg {
-    background-color: #bfa;
     position: absolute;
     left: 0; right: 0; top: 0; bottom: 0;
     overflow: auto;
