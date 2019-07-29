@@ -19,17 +19,17 @@ import {
   // DatePicker,
   // Divider,
   // Dropdown,
-  // Form,
+  Form,
   Icon,
-  // Input,
+  Input,
   // InputNumber,
   Layout,
   List,
   // LocaleProvider,
-  // message,
+  message,
   // Menu,
-  // Modal,
-  // notification,
+  Modal,
+  notification,
   // Pagination,
   // Popconfirm,
   // Popover,
@@ -60,13 +60,13 @@ import {
   // ConfigProvider
 } from 'ant-design-vue'
 
-// Vue.prototype.$message = message
-// Vue.prototype.$notification = notification
-// Vue.prototype.$info = Modal.info
-// Vue.prototype.$success = Modal.success
-// Vue.prototype.$error = Modal.error
-// Vue.prototype.$warning = Modal.warning
-// Vue.prototype.$confirm = Modal.confirm
+Vue.prototype.$message = message
+Vue.prototype.$notification = notification
+Vue.prototype.$info = Modal.info
+Vue.prototype.$success = Modal.success
+Vue.prototype.$error = Modal.error
+Vue.prototype.$warning = Modal.warning
+Vue.prototype.$confirm = Modal.confirm
 
 /* v1.1.3+ registration methods */
 // Vue.use(Affix)
@@ -89,9 +89,9 @@ Vue.use(Card)
 // Vue.use(Divider)
 Vue.use(Drawer)
 // Vue.use(Dropdown)
-// Vue.use(Form)
+Vue.use(Form)
 Vue.use(Icon)
-// Vue.use(Input)
+Vue.use(Input)
 // Vue.use(InputNumber)
 Vue.use(Layout)
 Vue.use(List)

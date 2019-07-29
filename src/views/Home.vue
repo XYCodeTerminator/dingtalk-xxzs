@@ -65,8 +65,19 @@
       :visible="newMsgVisible"
     >
       <div class="new-msg">
-        aaaaa
-        <a-button @click="newMsgVisible = false">取消</a-button>
+        <div class="to">
+          <div class="to-name">收信人：</div>
+          <input type="text" :value="toUserName">
+          <a-icon @click="chooseTo" type="user-add" style="color: #1FAFFF;font-size: 20px;" />
+        </div>
+        <div class="title">
+          <div class="title-label">主题：</div>
+          <input type="text" :value="title">
+        </div>
+        <div class="new-msg-content">
+          <textarea placeholder="请输入正文..." />
+        </div>
+        <a-button style="margin-top: 30px" @click="newMsgVisible = false">取消</a-button>
       </div>
     </a-drawer>
   </div>
@@ -105,6 +116,8 @@ export default {
         { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
         { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' }
       ],
+      toUserName: '',
+      title: ''
     }
   },
   methods: {
@@ -156,6 +169,9 @@ export default {
     }
   },
   components: {
+  },
+  beforeCreate() {
+    this.from = this.$form.createForm(this)
   },
   mounted () {
     this.$dd.ready(() => {
@@ -277,5 +293,40 @@ export default {
   }
 
   .new-msg {
+    .to {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      // background-color: #bfa;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+      input {
+        flex: 1 1 auto;
+        border: none;
+        outline: none;
+      }
+    }
+    .title {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+      input {
+        flex: 1 1 auto;
+        border: none;
+        outline: none;
+      }
+    }
+    .new-msg-content {
+      border-bottom: 1px solid #eee;
+      textarea {
+        width: 100%;
+        min-height: 230px;
+        border: none;
+        outline: none;
+        padding: 20px;
+      }
+    }
   }
 </style>
