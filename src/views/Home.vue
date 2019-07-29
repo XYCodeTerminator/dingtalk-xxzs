@@ -67,9 +67,9 @@
     >
       <div class="new-msg">
         <div class="new-msg-nav">
-          <a class="cancelSend">取消</a>
+          <a @click="cancelSend">取消</a>
           <div class="nav-title">发消息</div>
-          <a class="send" :disabled="true">发送</a>
+          <a @click="send" :disabled="true">发送</a>
         </div>
         <div class="to">
           <div class="to-name">收信人：</div>
@@ -209,6 +209,9 @@ export default {
     cancelSend() {
       this.newMsgVisible = false
       this.isInNewMsg = false
+    },
+    send() {
+
     },
     chooseTo () {
       // this.$dd.ready(() => {
@@ -359,6 +362,9 @@ export default {
       align-items: center;
       // border-bottom: solid 1px #eee;
       padding: 10px 0;
+      a {
+        font-size: 15px;
+      }
       .nav-title {
         font-size: 16px;
         font-weight: 400;
@@ -409,9 +415,9 @@ export default {
       padding: 5px 10px;
     }
     .upload-files {
+      flex: 1 1 auto;
       padding: 10px;
       max-height: 100px;
-      min-height: 50px;
       overflow: auto;
       -webkit-overflow-scrolling: touch;
     }
