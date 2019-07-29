@@ -160,7 +160,9 @@ export default {
 
     },
     newMsg() {
-      this.isInNewMsg = true
+      setTimeout(() => {
+        this.isInNewMsg = true
+      }, 500);
       this.newMsgVisible = true
     },
     cancelNewMsg() {
