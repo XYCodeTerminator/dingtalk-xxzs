@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import { corpId } from '@/config/dingtalk.config'
+import { corpId, appId } from '@/config/dingtalk.config'
 export default {
   name: 'home',
   data () {
@@ -214,11 +214,31 @@ export default {
 
     },
     chooseTo () {
-      // this.$dd.ready(() => {
-      //   this.$dd.biz.contact.complexPicker({
-
-      //   });
-      // })
+      this.$dd.ready(() => {
+        this.$dd.biz.contact.complexPicker({
+          title: "请选择收信人",      
+          corpId,                   
+          multiple: true,            
+          limitTips: "最多可选100人",     
+          maxUsers: 100,           
+          pickedUsers: [],       
+          pickedDepartments: [],       
+          disabledUsers: [],          
+          disabledDepartments: [],   
+          requiredUsers: [],          
+          requiredDepartments: [], 
+          appId,     
+          permissionType: "GLOBAL",  
+          responseUserOnly: false,   
+          // startWithDepartmentId: 0, 
+          onSuccess: function(result) {
+            alert(JSON.stringify(result))
+          },
+          onFail : function(err) {
+            alert(JSON.stringify(err))
+          }
+        });
+      })
     },
     uploadFile() {
 
