@@ -73,15 +73,15 @@
         </div>
         <div class="to">
           <div class="to-name">收信人：</div>
-          <input type="text" :value="toUserName">
+          <input type="text" v-model="toUserName">
           <a-icon @click="chooseTo" type="user-add" style="color: #1FAFFF;font-size: 20px;" />
         </div>
         <div class="title">
           <div class="title-label">主&nbsp;&nbsp;&nbsp;题：</div>
-          <input type="text" :value="title">
+          <input type="text" v-model="title">
         </div>
         <div class="new-msg-content">
-          <textarea placeholder="请输入正文..." :value="content" />
+          <textarea placeholder="请输入正文..." v-model="content" />
         </div>
         <div class="new-msg-buttons">
           <div class="upload-btn">
