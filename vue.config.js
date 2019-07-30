@@ -12,7 +12,7 @@ module.exports = {
     port: 8080,
     proxy: {
       '/': {
-        target: 'http://jmie9w.natappfree.cc',
+        target: 'http://upt5yj.natappfree.cc',
         ws: false,
         changeOrigin: true
       }
