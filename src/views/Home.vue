@@ -68,7 +68,7 @@
         <div class="new-msg-nav">
           <a @click="cancelSend">取消</a>
           <div class="nav-title">发消息</div>
-          <a @click="send" :disabled="isSendBtnDisabled">发送</a>
+          <a @click="send">发送</a>
         </div>
         <div class="to">
           <div class="to-name">收信人：</div>
