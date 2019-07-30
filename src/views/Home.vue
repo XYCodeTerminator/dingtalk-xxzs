@@ -245,7 +245,7 @@ export default {
           permissionType: "GLOBAL",  
           responseUserOnly: false,   
           // startWithDepartmentId: 0, 
-          onSuccess: function(result) {
+          onSuccess: result => {
             alert(JSON.stringify(result))
             if (result.users) {
               let toUsers = result.users
