@@ -23,7 +23,7 @@
           <a-spin v-if="loadingMore" />
           <a-button v-else @click="onLoadMore" size="small">加载更多</a-button>
         </div>
-        <a-list-item slot="renderItem" slot-scope="msg, index">
+        <a-list-item slot="renderItem" slot-scope="msg">
           <a slot="actions">删除</a>
           <a-list-item-meta
             :description="msg.content.substring(0, 18)"
@@ -446,15 +446,13 @@ export default {
       flex: 1 1 auto;
       padding: 10px;
       max-height: 150px;
-      // overflow: auto;
-      // -webkit-overflow-scrolling: touch;
       position: relative;
       /deep/ .ant-upload-btn {
         height: 25px;
       }
       /deep/ .ant-upload-list {
         overflow: auto;
-        -webkit-overflow-scrolling: auto;
+        -webkit-overflow-scrolling: touch;
         height: calc(100% - 25px);
         &::-webkit-scrollbar {
           display: none;
