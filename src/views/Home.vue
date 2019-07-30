@@ -5,14 +5,13 @@
         收件箱
       </div>
     </div> -->
-    <!-- <div @click="chooseTo">选择联系人</div> -->
     <div class="bottom">
       <a-icon @click="showDrawer" type="menu-unfold" style="color: #1FAFFF;font-size: 25px;" />
       <a-icon @click="newMsg" type="form" style="color: #1FAFFF;font-size: 25px;" />
     </div>
 
     <div class="content" v-if="!isInNewMsg">
-      <div class="content-header">收件箱</div>
+      <div class="content-header">{{msgBoxType}}</div>
       <a-list
         class="msg-list"
         :loading="false"
@@ -50,7 +49,7 @@
         <div class="user-name">{{userInfo && userInfo.userName}}</div>
       </div>
       <div class="list">
-        <div class="list-item" v-for="(item, i) in listItems" :key="i" >
+        <div class="list-item" :class="{ selected: item.label == msgBoxType }" @click="changeMsgBox(item)"  v-for="(item, i) in listItems" :key="i" >
           <a-icon :type="item.icon" style="color: #1FAFFF;font-size: 18px;" />
           <div class="label">{{item.label}}</div>
         </div>
@@ -69,11 +68,11 @@
         <div class="new-msg-nav">
           <a @click="cancelSend">取消</a>
           <div class="nav-title">发消息</div>
-          <a @click="send" :disabled="true">发送</a>
+          <a @click="send" :disabled="isSendBtnDisabled">发送</a>
         </div>
         <div class="to">
           <div class="to-name">收信人：</div>
-          <input type="text" v-model="toUserName">
+          <input type="text" v-model="toUserName" :disabled="true" placeholder="请选择收信人" >
           <a-icon @click="chooseTo" type="user-add" style="color: #1FAFFF;font-size: 20px;" />
         </div>
         <div class="title">
@@ -90,7 +89,10 @@
         </div> -->
         <div class="upload-files">
           <a-upload 
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76" 
+            :multiple="true"
+            action="/files/upload" 
+            @change="handleChange"
+            :fileList="fileList"
             :defaultFileList="defaultFileList">
             <div>
               <a-icon @click="uploadFile" type="paper-clip" style="color: #1FAFFF;font-size: 22px;" />
@@ -108,11 +110,13 @@ export default {
   name: 'home',
   data () {
     return {
+      isSendBtnDisabled: true,
       isInNewMsg: false,
       newMsgVisible: false,
       visible: false,
       spinning: false,
       userInfo: null,
+      msgBoxType: '收件箱',
       listItems: [
         { label: '收件箱', icon: 'inbox' },
         { label: '已发送', icon: 'check' },
@@ -140,49 +144,31 @@ export default {
       toUsers: [],
       title: '',
       content: '',
-      defaultFileList: [{
-        uid: '1',
-        name: 'xxx.png',
-        status: 'done',
-        response: 'Server Error 500', // custom error message to show
-        url: 'http://www.baidu.com/xxx.png',
-      }, {
-        uid: '2',
-        name: 'yyy.png',
-        status: 'done',
-        url: 'http://www.baidu.com/yyy.png',
-      }, {
-        uid: '3',
-        name: 'yyy.png',
-        status: 'done',
-        url: 'http://www.baidu.com/yyy.png',
-      }, {
-        uid: '4',
-        name: 'yyy.png',
-        status: 'done',
-        url: 'http://www.baidu.com/yyy.png',
-      }, {
-        uid: '5',
-        name: 'zzz.png',
-        status: 'error',
-        response: 'Server Error 500', // custom error message to show
-        url: 'http://www.baidu.com/zzz.png',
-      }, {
-        uid: '6',
-        name: 'zzz.png',
-        status: 'error',
-        response: 'Server Error 500', // custom error message to show
-        url: 'http://www.baidu.com/zzz.png',
-      }],
+      fileList: [],
+      defaultFileList: [],
     }
   },
   methods: {
+    handleChange(info) {
+      let file = info.file,
+          fileList = [...info.fileList]
+      fileList = fileList.map(file => {
+        if (file.response) {
+          file.url = file.response.url
+        }
+        return file
+      })
+      this.fileList = fileList
+    },
     showDrawer () {
       this.visible = true
     },
     onClose () {
       this.visible = false
       this.newMsgVisible = false
+    },
+    changeMsgBox(item) {
+      this.msgBoxType = item.label
     },
     getUserInfo () {
       this.spinning = true
@@ -225,7 +211,27 @@ export default {
       this.content = ''
     },
     send() {
-
+      if (this.toUsers.length == 0) {
+        this.$message.error('请选择收信人')
+      } else if (!this.title) {
+        this.$message.error('主题不能为空')
+      } else if (!this.content) {
+        this.$message.error('正文不能为空')
+      } else {
+        this.isSendBtnDisabled = false
+        this.$http.post('/msg/send',{
+          title: this.title,
+          content: this.content,
+          fileList: this.fileList,
+          toUsers: this.toUsers,
+          fromUser: this.userInfo
+        })
+        .then(res => {
+          alert(JSON.stringify(res))
+        }).catch(err => {
+          alert(JSON.stringify(err))
+        })
+      }
     },
     chooseTo () {
       this.$dd.ready(() => {
@@ -369,6 +375,9 @@ export default {
       height: 30px;
       padding: 20px 0;
       border-bottom: solid 1px #eee;
+      &.selected {
+        background-color: #eee;
+      }
       .label {
         margin: 0 10px;
       }
