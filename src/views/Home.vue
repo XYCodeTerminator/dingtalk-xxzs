@@ -153,6 +153,7 @@ export default {
     handleChange(info) {
       let file = info.file,
           fileList = [...info.fileList]
+      console.log(fileList)
       fileList = fileList.map(file => {
         if (file.response) {
           file.url = file.response.data.url
@@ -191,8 +192,10 @@ export default {
         }
       })
     },
-    fetchMsgList() {
-      
+    fetchMsgList(type) {
+      this.$http.get('/msg/list?type=' + type).then(res => {
+        alert(JSON.stringify(res.data))
+      }).catch(err => alert(JSON.stringify(err)))
     },
     onLoadMore () {
 
@@ -255,7 +258,7 @@ export default {
           responseUserOnly: false,   
           // startWithDepartmentId: 0, 
           onSuccess: result => {
-            alert(JSON.stringify(result))
+            // alert(JSON.stringify(result))
             if (result.users) {
               let toUsers = result.users
               this.toUsers = toUsers
