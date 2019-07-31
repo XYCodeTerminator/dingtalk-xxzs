@@ -141,6 +141,7 @@ export default {
         { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' }
       ],
       toUserName: '',
+      toUserId: [],
       toUsers: [],
       title: '',
       content: '',
@@ -223,8 +224,10 @@ export default {
           title: this.title,
           content: this.content,
           fileList: this.fileList,
-          toUsers: this.toUsers,
-          fromUser: this.userInfo
+          toUserName: this.toUserName,
+          toUserId: this.toUserId,
+          fromUserName: this.userInfo.userName,
+          fromUserId: this.userInfo.userId
         })
         .then(res => {
           alert(JSON.stringify(res))
@@ -256,9 +259,8 @@ export default {
             if (result.users) {
               let toUsers = result.users
               this.toUsers = toUsers
-              let toUserName = ''
-              toUserName = toUsers.map(user => user.name).join(',')
-              this.toUserName = toUserName
+              this.toUserName = toUsers.map(user => user.name).join(',')
+              this.toUserId = toUsers.map(user => user.emplId).join(',')
             }
           },
           onFail : function(err) {
