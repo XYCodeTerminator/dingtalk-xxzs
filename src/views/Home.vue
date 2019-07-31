@@ -155,7 +155,7 @@ export default {
           fileList = [...info.fileList]
       fileList = fileList.map(file => {
         if (file.response) {
-          file.url = file.response.url
+          file.url = file.response.data.url
         }
         return file
       })
