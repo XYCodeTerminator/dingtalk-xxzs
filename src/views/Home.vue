@@ -117,7 +117,7 @@ export default {
       newMsgVisible: false,
       visible: false,
       spinning: false,
-      userInfo: null,
+      userInfo: localStorage.getItem('userInfo'),
       msgBoxLabel: '收件箱',
       msgBoxTag: 1,
       listItems: [
@@ -362,7 +362,7 @@ export default {
     //   this.getUserInfo()
     // })
     this.spinning = true
-    if (localStorage.getItem('userInfo')) {
+    if (this.userInfo) {
       this.spinning = false
       return
     }
