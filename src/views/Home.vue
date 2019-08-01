@@ -1,10 +1,5 @@
 <template>
   <div class="home">
-    <!-- <div class="header">
-      <div class="title">
-        收件箱
-      </div>
-    </div> -->
     <div class="bottom">
       <a-icon @click="showDrawer" type="menu-unfold" style="color: #1FAFFF;font-size: 25px;" />
       <a-icon @click="newMsg" type="form" style="color: #1FAFFF;font-size: 25px;" />
@@ -28,12 +23,12 @@
         <a-list-item slot="renderItem" slot-scope="msg">
           <a slot="actions">删除</a>
           <a-list-item-meta
-            :description="msg.content.substring(0, 18)"
+            :description="msg.title.substring(0, 18)"
           >
-            <div slot="title">{{msg.from_name}}</div>
+            <div slot="title">{{(this.msgBoxTag == 2 || this.msgBoxTag == 3) ? msg.to_name : msg.from_name}}</div>
             <!-- <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /> -->
           </a-list-item-meta>
-          <!-- <div>content</div> -->
+          <div>{{msg.content.substring(0, 30)}}</div>
         </a-list-item>
       </a-list>
     </div>
