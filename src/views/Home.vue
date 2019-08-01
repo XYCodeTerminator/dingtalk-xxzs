@@ -179,21 +179,21 @@ export default {
         onSuccess: res => {
           this.$http.post('/users/login', {
             authCode: res.code
+          }).then(res => {
+            this.spinning = false
+            this.userInfo = res.data
+            this.fetchMsgList(1)
+          }).catch(err => {
+            alert(JSON.stringify(err))
           })
-            .then(res => {
-              this.spinning = false
-              this.userInfo = res.data
-            }).catch(err => {
-              alert(JSON.stringify(err))
-            })
         },
         onFail: err => {
           alert(JSON.stringify(err))
         }
       })
     },
-    fetchMsgList(type) {
-      this.$http.get('/msg/list?type=' + type).then(res => {
+    fetchMsgList(tag) {
+      this.$http.get('/msg/list?tag=' + tag).then(res => {
         alert(JSON.stringify(res.data))
       }).catch(err => alert(JSON.stringify(err)))
     },
@@ -284,15 +284,6 @@ export default {
   mounted () {
     this.$dd.ready(() => {
       this.getUserInfo()
-      // this.$dd.runtime.info({
-      //   onSuccess: function(info) {
-      //     alert('runtime info: ' + JSON.stringify(info));
-      //   },
-      //   onFail: function(err) {
-      //     alert('fail: ' + JSON.stringify(err));
-      //   }
-      // })
-      // this.pullToRefresh()
     })
     this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
       .then(res => {
