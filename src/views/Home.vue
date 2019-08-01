@@ -11,7 +11,7 @@
     </div>
 
     <div class="content" v-if="!isInNewMsg">
-      <div class="content-header">{{msgBoxType}}</div>
+      <div class="content-header">{{msgBoxLabel}}</div>
       <a-list
         class="msg-list"
         :loading="false"
@@ -27,7 +27,7 @@
           <a-list-item-meta
             :description="msg.content.substring(0, 18)"
           >
-            <div slot="title">{{msg.from}}</div>
+            <div slot="title">{{msg.from_name}}</div>
             <!-- <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /> -->
           </a-list-item-meta>
           <!-- <div>content</div> -->
@@ -49,7 +49,7 @@
         <div class="user-name">{{userInfo && userInfo.userName}}</div>
       </div>
       <div class="list">
-        <div class="list-item" :class="{ selected: item.label == msgBoxType }" @click="changeMsgBox(item)"  v-for="(item, i) in listItems" :key="i" >
+        <div class="list-item" :class="{ selected: item.label == msgBoxLabel }" @click="changeMsgBox(item)"  v-for="(item, i) in listItems" :key="i" >
           <a-icon :type="item.icon" style="color: #1FAFFF;font-size: 18px;" />
           <div class="label">{{item.label}}</div>
         </div>
@@ -116,12 +116,13 @@ export default {
       visible: false,
       spinning: false,
       userInfo: null,
-      msgBoxType: '收件箱',
+      msgBoxLabel: '收件箱',
+      msgBoxTag: '1',
       listItems: [
-        { label: '收件箱', icon: 'inbox' },
-        { label: '已发送', icon: 'check' },
-        { label: '已删除', icon: 'delete' },
-        { label: '草稿箱', icon: 'file' },
+        { label: '收件箱', tag: 1, icon: 'inbox' },
+        { label: '已发送', tag: 2, icon: 'check' },
+        { label: '已删除', tag: 0, icon: 'delete' },
+        { label: '草稿箱', tag: 3, icon: 'file' },
       ],
       loading: true,
       loadingMore: false,
@@ -170,7 +171,10 @@ export default {
       this.newMsgVisible = false
     },
     changeMsgBox(item) {
+      this.msgBoxTag = item.tag
       this.msgBoxType = item.label
+      this.msgList = []
+      this.fetchMsgList(this.msgBoxTag)
     },
     getUserInfo () {
       this.spinning = true
@@ -182,7 +186,7 @@ export default {
           }).then(res => {
             this.spinning = false
             this.userInfo = res.data
-            this.fetchMsgList(1)
+            this.fetchMsgList(this.msgBoxTag)
           }).catch(err => {
             alert(JSON.stringify(err))
           })
@@ -193,8 +197,16 @@ export default {
       })
     },
     fetchMsgList(tag) {
-      this.$http.get('/msg/list?tag=' + tag).then(res => {
-        alert(JSON.stringify(res.data))
+      let current = this.msgList.length || 0
+      this.$http.get('/msg/list', {
+        params: {
+          tag,
+          current,
+          size: 20
+        }
+      }).then(res => {
+        // alert(JSON.stringify(res.data))
+        this.msgList = res.data.data
       }).catch(err => alert(JSON.stringify(err)))
     },
     onLoadMore () {
