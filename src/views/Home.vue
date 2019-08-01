@@ -127,20 +127,7 @@ export default {
       loading: true,
       loadingMore: false,
       showLoadingMore: true,
-      msgList: [
-        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
-        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
-        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
-        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
-        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
-        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
-        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
-        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
-        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
-        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
-        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' },
-        { from: 'Sunrise', title: '消息助手测试', content: '消息助手测试消息助手测试消息助手测试' }
-      ],
+      msgList: [],
       toUserName: '',
       toUserId: [],
       toUsers: [],
@@ -231,9 +218,11 @@ export default {
     },
     onLoadMore () {
       this.loadingMore = true
-      this.fetchMsg().then(res => {
-        this.msgList.concat(res.data.data)
+      this.fetchMsg().then(data => {
+        this.msgList.concat(data)
+        this.loadingMore = false
       }).catch(err => {
+        this.loadingMore = false
         this.$message.error('加载数据失败')
       })
     },
