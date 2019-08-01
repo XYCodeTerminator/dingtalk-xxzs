@@ -30,10 +30,9 @@
           <a-list-item-meta
             :description="msg.title.substring(0, 18)"
           >
-            <div slot="title">{{msg.from_name}}</div>
+            <div slot="title">{{msgBoxTag == 2 || msgBoxTag == 3 ? msg.to_name : msg.from_name}}</div>
             <!-- <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /> -->
           </a-list-item-meta>
-          <!-- <div>content</div> -->
         </a-list-item>
       </a-list>
     </div>
