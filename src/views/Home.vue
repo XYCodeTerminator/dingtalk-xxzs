@@ -1,5 +1,10 @@
 <template>
   <div class="home">
+    <!-- <div class="header">
+      <div class="title">
+        收件箱
+      </div>
+    </div> -->
     <div class="bottom">
       <a-icon @click="showDrawer" type="menu-unfold" style="color: #1FAFFF;font-size: 25px;" />
       <a-icon @click="newMsg" type="form" style="color: #1FAFFF;font-size: 25px;" />
@@ -25,10 +30,10 @@
           <a-list-item-meta
             :description="msg.title.substring(0, 18)"
           >
-            <div slot="title">{{(this.msgBoxTag == 2 || this.msgBoxTag == 3) ? msg.to_name : msg.from_name}}</div>
+            <div slot="title">{{msg.from_name}}</div>
             <!-- <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /> -->
           </a-list-item-meta>
-          <div>{{msg.content.substring(0, 30)}}</div>
+          <!-- <div>content</div> -->
         </a-list-item>
       </a-list>
     </div>
@@ -86,9 +91,9 @@
           </div>
         </div> -->
         <div class="upload-files">
-          <a-upload 
+          <a-upload
             :multiple="true"
-            action="/files/upload" 
+            action="/files/upload"
             @change="handleChange"
             :fileList="fileList"
             :defaultFileList="defaultFileList">
@@ -120,7 +125,7 @@ export default {
         { label: '收件箱', tag: 1, icon: 'inbox' },
         { label: '已发送', tag: 2, icon: 'check' },
         { label: '已删除', tag: 0, icon: 'delete' },
-        { label: '草稿箱', tag: 3, icon: 'file' },
+        { label: '草稿箱', tag: 3, icon: 'file' }
       ],
       loading: true,
       loadingMore: false,
@@ -132,13 +137,13 @@ export default {
       title: '',
       content: '',
       fileList: [],
-      defaultFileList: [],
+      defaultFileList: []
     }
   },
   methods: {
-    handleChange(info) {
-      let file = info.file,
-          fileList = [...info.fileList]
+    handleChange (info) {
+      let file = info.file
+      let fileList = [...info.fileList]
       console.log(fileList)
       fileList = fileList.map(file => {
         if (file.response) {
@@ -155,7 +160,7 @@ export default {
       this.visible = false
       this.newMsgVisible = false
     },
-    changeMsgBox(item) {
+    changeMsgBox (item) {
       this.msgBoxTag = item.tag
       this.msgBoxLabel = item.label
       this.msgList = []
@@ -181,7 +186,7 @@ export default {
         }
       })
     },
-    initMsgList() {
+    initMsgList () {
       let start = 0
       this.$http.get('/msg/list', {
         params: {
@@ -194,7 +199,7 @@ export default {
         this.msgList = res.data.data
       }).catch(err => alert(JSON.stringify(err)))
     },
-    fetchMsg() {
+    fetchMsg () {
       return new Promise((resolve, reject) => {
         let start = this.msgList.length || 0
         this.$http.get('/msg/list', {
@@ -225,13 +230,13 @@ export default {
         this.$message.error('加载数据失败')
       })
     },
-    newMsg() {
+    newMsg () {
       setTimeout(() => {
         this.isInNewMsg = true
-      }, 500);
+      }, 500)
       this.newMsgVisible = true
     },
-    cancelSend() {
+    cancelSend () {
       // this.newMsgVisible = false
       // this.isInNewMsg = false
       // this.toUserName = ''
@@ -240,7 +245,7 @@ export default {
       // this.content = ''
       this.clear()
     },
-    clear() {
+    clear () {
       this.newMsgVisible = false
       this.isInNewMsg = false
       this.title = ''
@@ -250,7 +255,7 @@ export default {
       this.toUsers = []
       this.fileList = []
     },
-    send() {
+    send () {
       if (this.toUsers.length == 0) {
         this.$message.error('请选择收信人')
       } else if (!this.title) {
@@ -259,7 +264,7 @@ export default {
         this.$message.error('正文不能为空')
       } else {
         this.isSendBtnDisabled = false
-        this.$http.post('/msg/send',{
+        this.$http.post('/msg/send', {
           title: this.title,
           content: this.content,
           fileList: this.fileList,
@@ -268,39 +273,39 @@ export default {
           fromUserName: this.userInfo.userName,
           fromUserId: this.userInfo.userId
         })
-        .then(res => {
+          .then(res => {
           // alert(JSON.stringify(res))
-          if (res.data.success) {
-            this.$message.success('发送成功')
-            this.newMsgVisible = true
-            this.isInNewMsg = true
-            this.clear()
-          } else {
-            this.$message.error('发送失败')
-          }
-        }).catch(err => {
-          alert(JSON.stringify(err))
-        })
+            if (res.data.success) {
+              this.$message.success('发送成功')
+              this.newMsgVisible = true
+              this.isInNewMsg = true
+              this.clear()
+            } else {
+              this.$message.error('发送失败')
+            }
+          }).catch(err => {
+            alert(JSON.stringify(err))
+          })
       }
     },
     chooseTo () {
       this.$dd.ready(() => {
         this.$dd.biz.contact.complexPicker({
-          title: "请选择收信人",      
-          corpId,                   
-          multiple: true,            
-          limitTips: "最多可选100人",     
-          maxUsers: 100,           
-          pickedUsers: [],       
-          pickedDepartments: [],       
-          disabledUsers: [],          
-          disabledDepartments: [],   
-          requiredUsers: [],          
-          requiredDepartments: [], 
-          appId,     
-          permissionType: "GLOBAL",  
-          responseUserOnly: false,   
-          // startWithDepartmentId: 0, 
+          title: '请选择收信人',
+          corpId,
+          multiple: true,
+          limitTips: '最多可选100人',
+          maxUsers: 100,
+          pickedUsers: [],
+          pickedDepartments: [],
+          disabledUsers: [],
+          disabledDepartments: [],
+          requiredUsers: [],
+          requiredDepartments: [],
+          appId,
+          permissionType: 'GLOBAL',
+          responseUserOnly: false,
+          // startWithDepartmentId: 0,
           onSuccess: result => {
             // alert(JSON.stringify(result))
             if (result.users) {
@@ -310,19 +315,19 @@ export default {
               this.toUserId = toUsers.map(user => user.emplId).join(',')
             }
           },
-          onFail : function(err) {
+          onFail: function (err) {
             alert(JSON.stringify(err))
           }
-        });
+        })
       })
     },
-    uploadFile() {
+    uploadFile () {
 
     }
   },
   components: {
   },
-  beforeCreate() {
+  beforeCreate () {
     this.from = this.$form.createForm(this)
   },
   mounted () {
