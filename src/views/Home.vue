@@ -11,7 +11,10 @@
     </div>
 
     <div class="content" v-if="!isInNewMsg">
-      <div class="content-header">{{msgBoxLabel}}</div>
+      <div class="content-header">
+        <div class="content-header-title">{{msgBoxLabel}}</div>
+        <a-icon @click="initMsgList" type="reload" style="color: #1FAFFF;font-size: 16px;" />
+      </div>
       <a-list
         class="msg-list"
         :loading="false"
@@ -364,6 +367,10 @@ export default {
       padding: 0 20px;
       background-color: #fff;
       z-index: 1000;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: space-between;
     }
   }
   .spin {
