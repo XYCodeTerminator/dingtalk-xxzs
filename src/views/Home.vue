@@ -172,7 +172,7 @@ export default {
     },
     changeMsgBox(item) {
       this.msgBoxTag = item.tag
-      this.msgBoxType = item.label
+      this.msgBoxLabel = item.label
       this.msgList = []
       this.fetchMsgList(this.msgBoxTag)
     },
