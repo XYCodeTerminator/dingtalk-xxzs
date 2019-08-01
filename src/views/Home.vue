@@ -244,6 +244,14 @@ export default {
       this.title = ''
       this.content = ''
     },
+    clear() {
+      this.title = ''
+      this.content = ''
+      this.toUserName = ''
+      this.toUserId = ''
+      this.toUsers = []
+      this.fileList = []
+    },
     send() {
       if (this.toUsers.length == 0) {
         this.$message.error('请选择收信人')
@@ -263,7 +271,15 @@ export default {
           fromUserId: this.userInfo.userId
         })
         .then(res => {
-          alert(JSON.stringify(res))
+          // alert(JSON.stringify(res))
+          if (res.data.success) {
+            this.$message.success('发送成功')
+            this.newMsgVisible = true
+            this.isInNewMsg = true
+            this.clear()
+          } else {
+            this.$message.error('发送失败')
+          }
         }).catch(err => {
           alert(JSON.stringify(err))
         })
