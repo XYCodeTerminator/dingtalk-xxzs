@@ -166,24 +166,44 @@ export default {
       this.initMsgList()
     },
     getUserInfo () {
-      this.spinning = true
-      this.$dd.runtime.permission.requestAuthCode({
-        corpId,
-        onSuccess: res => {
-          this.$http.post('/users/login', {
-            authCode: res.code
-          }).then(res => {
-            this.spinning = false
-            this.userInfo = res.data
-            this.initMsgList()
-          }).catch(err => {
-            alert(JSON.stringify(err))
+      // this.spinning = true
+      // this.$dd.runtime.permission.requestAuthCode({
+      //   corpId,
+      //   onSuccess: res => {
+      //     this.$http.post('/users/login', {
+      //       authCode: res.code
+      //     }).then(res => {
+      //       this.spinning = false
+      //       this.userInfo = res.data
+      //       this.initMsgList()
+      //     }).catch(err => {
+      //       alert(JSON.stringify(err))
+      //     })
+      //   },
+      //   onFail: err => {
+      //     alert(JSON.stringify(err))
+      //   }
+      // })
+      return new Promise((resolve, reject) => {
+        this.$dd.ready(() => {
+          this.$dd.runtime.permission.requestAuthCode({
+            corpId,
+            onSuccess: res => {
+              this.$http.post('/users/login', {
+                authCode: res.code
+              }).then(res => {
+                resolve(res.data)
+              }).catch(err => {
+                reject(err)
+              })
+            },
+            onFail: err => {
+              reject(err)
+            }
           })
-        },
-        onFail: err => {
-          alert(JSON.stringify(err))
-        }
+        })
       })
+
     },
     initMsgList () {
       // this.loadingMore = true
@@ -338,8 +358,16 @@ export default {
     this.from = this.$form.createForm(this)
   },
   mounted () {
-    this.$dd.ready(() => {
-      this.getUserInfo()
+    // this.$dd.ready(() => {
+    //   this.getUserInfo()
+    // })
+    this.spinning = true
+    this.getUserInfo().then(data => {
+      this.spinning = false
+      this.userInfo = data
+    }).catch(err => {
+      this.spinning = false
+      alert(JSON.stringify(err))
     })
     this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
       .then(res => {
