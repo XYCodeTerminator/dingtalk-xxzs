@@ -237,14 +237,17 @@ export default {
       this.newMsgVisible = true
     },
     cancelSend() {
-      this.newMsgVisible = false
-      this.isInNewMsg = false
-      this.toUserName = ''
-      this.toUsers = []
-      this.title = ''
-      this.content = ''
+      // this.newMsgVisible = false
+      // this.isInNewMsg = false
+      // this.toUserName = ''
+      // this.toUsers = []
+      // this.title = ''
+      // this.content = ''
+      this.clear()
     },
     clear() {
+      this.newMsgVisible = false
+      this.isInNewMsg = false
       this.title = ''
       this.content = ''
       this.toUserName = ''
