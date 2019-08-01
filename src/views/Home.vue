@@ -117,7 +117,7 @@ export default {
       newMsgVisible: false,
       visible: false,
       spinning: false,
-      userInfo: localStorage.getItem('userInfo'),
+      userInfo: null,
       msgBoxLabel: '收件箱',
       msgBoxTag: 1,
       listItems: [
@@ -361,15 +361,16 @@ export default {
     // this.$dd.ready(() => {
     //   this.getUserInfo()
     // })
-    this.spinning = true
-    if (this.userInfo) {
-      this.spinning = false
-      return
-    }
+    // this.spinning = true
+    // if (this.userInfo) {
+    //   this.spinning = false
+    //   this.initMsgList()
+    //   return
+    // }
     this.getUserInfo().then(data => {
       this.spinning = false
       this.userInfo = data
-      localStorage.setItem('userInfo', this.userInfo)
+      // localStorage.setItem('userInfo', this.userInfo)
       this.initMsgList()
     }).catch(err => {
       this.spinning = false
