@@ -10,9 +10,6 @@ import Home from '@/views/Home'
 export default {
   components: {
     Home
-  },
-  beforeDestroy() {
-    localStorage.clear()
   }
 }
 </script>

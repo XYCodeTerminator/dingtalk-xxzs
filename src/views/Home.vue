@@ -370,7 +370,6 @@ export default {
     this.getUserInfo().then(data => {
       this.spinning = false
       this.userInfo = data
-      // localStorage.setItem('userInfo', this.userInfo)
       this.initMsgList()
     }).catch(err => {
       this.spinning = false
