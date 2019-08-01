@@ -362,9 +362,15 @@ export default {
     //   this.getUserInfo()
     // })
     this.spinning = true
+    if (localStorage.getItem('userInfo')) {
+      this.spinning = false
+      return
+    }
     this.getUserInfo().then(data => {
       this.spinning = false
       this.userInfo = data
+      localStorage.setItem('userInfo', this.userInfo)
+      this.initMsgList()
     }).catch(err => {
       this.spinning = false
       alert(JSON.stringify(err))
