@@ -186,6 +186,7 @@ export default {
       })
     },
     initMsgList () {
+      this.loadingMore = true
       let start = 0
       this.$http.get('/msg/list', {
         params: {
@@ -195,8 +196,12 @@ export default {
         }
       }).then(res => {
         // alert(JSON.stringify(res.data))
+        this.loadingMore = false
         this.msgList = res.data.data
-      }).catch(err => alert(JSON.stringify(err)))
+      }).catch(err => {
+        this.loadingMore = false
+        alert(JSON.stringify(err))
+      })
     },
     fetchMsg () {
       return new Promise((resolve, reject) => {
