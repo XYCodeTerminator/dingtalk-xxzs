@@ -219,8 +219,8 @@ export default {
     onLoadMore () {
       this.loadingMore = true
       this.fetchMsg().then(data => {
-        alert(JSON.stringify(data))
-        this.msgList.concat(data)
+        // alert(JSON.stringify(data))
+        this.msgList = this.msgList.concat(data)
         this.loadingMore = false
       }).catch(err => {
         this.loadingMore = false
