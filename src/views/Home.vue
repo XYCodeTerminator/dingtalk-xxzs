@@ -174,7 +174,7 @@ export default {
       this.msgBoxTag = item.tag
       this.msgBoxLabel = item.label
       this.msgList = []
-      this.fetchMsgList(this.msgBoxTag)
+      this.initMsgList()
     },
     getUserInfo () {
       this.spinning = true
@@ -186,7 +186,7 @@ export default {
           }).then(res => {
             this.spinning = false
             this.userInfo = res.data
-            this.fetchMsgList(this.msgBoxTag)
+            this.initMsgList()
           }).catch(err => {
             alert(JSON.stringify(err))
           })
@@ -196,11 +196,11 @@ export default {
         }
       })
     },
-    fetchMsgList(tag) {
-      let current = this.msgList.length || 0
+    initMsgList() {
+      let current = 0
       this.$http.get('/msg/list', {
         params: {
-          tag,
+          tag: this.msgBoxTag,
           current,
           size: 20
         }
@@ -209,8 +209,33 @@ export default {
         this.msgList = res.data.data
       }).catch(err => alert(JSON.stringify(err)))
     },
+    fetchMsg() {
+      return new Promise((resolve, reject) => {
+        let current = this.msgList.length || 0
+        this.$http.get('/msg/list', {
+          params: {
+            tag: this.msgBoxTag,
+            current,
+            size: 20
+          }
+        }).then(res => {
+          if (res.data.success) {
+            resolve(res.data.data)
+          } else {
+            reject(res.data)
+          }
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
     onLoadMore () {
-
+      this.loadingMore = true
+      this.fetchMsg().then(res => {
+        this.msgList.concat(res.data.data)
+      }).catch(err => {
+        this.$message.error('加载数据失败')
+      })
     },
     newMsg() {
       setTimeout(() => {
