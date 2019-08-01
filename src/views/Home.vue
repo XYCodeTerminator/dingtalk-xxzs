@@ -197,12 +197,12 @@ export default {
       })
     },
     initMsgList() {
-      let current = 0
+      let start = 0
       this.$http.get('/msg/list', {
         params: {
           tag: this.msgBoxTag,
-          current,
-          size: 20
+          start,
+          size: 5
         }
       }).then(res => {
         // alert(JSON.stringify(res.data))
@@ -211,12 +211,12 @@ export default {
     },
     fetchMsg() {
       return new Promise((resolve, reject) => {
-        let current = this.msgList.length || 0
+        let start = this.msgList.length || 0
         this.$http.get('/msg/list', {
           params: {
             tag: this.msgBoxTag,
-            current,
-            size: 20
+            start,
+            size: 5
           }
         }).then(res => {
           if (res.data.success) {
