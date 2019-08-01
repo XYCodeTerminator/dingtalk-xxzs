@@ -120,7 +120,7 @@ export default {
       spinning: false,
       userInfo: null,
       msgBoxLabel: '收件箱',
-      msgBoxTag: '1',
+      msgBoxTag: 1,
       listItems: [
         { label: '收件箱', tag: 1, icon: 'inbox' },
         { label: '已发送', tag: 2, icon: 'check' },
