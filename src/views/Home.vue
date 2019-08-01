@@ -25,8 +25,8 @@
           <a-spin v-if="loadingMore" />
           <a-button v-else @click="onLoadMore" size="small">加载更多</a-button>
         </div>
-        <a-list-item slot="renderItem" slot-scope="msg">
-          <a slot="actions">删除</a>
+        <a-list-item slot="renderItem" slot-scope="msg" @click="goMsgDetail(msg.id)">
+          <a slot="actions" @click.stop="alert('删除')" style="color: red;">删除</a>
           <a-list-item-meta
             :description="msg.title.substring(0, 18)"
           >
@@ -186,7 +186,7 @@ export default {
       })
     },
     initMsgList () {
-      this.loadingMore = true
+      // this.loadingMore = true
       let start = 0
       this.$http.get('/msg/list', {
         params: {
@@ -196,10 +196,10 @@ export default {
         }
       }).then(res => {
         // alert(JSON.stringify(res.data))
-        this.loadingMore = false
+        // this.loadingMore = false
         this.msgList = res.data.data
       }).catch(err => {
-        this.loadingMore = false
+        // this.loadingMore = false
         alert(JSON.stringify(err))
       })
     },
@@ -258,6 +258,9 @@ export default {
       this.toUserId = ''
       this.toUsers = []
       this.fileList = []
+    },
+    goMsgDetail(id) {
+      this.$router.push({ name: 'msgDetail', params: { id }})
     },
     send () {
       if (this.toUsers.length == 0) {
