@@ -184,6 +184,7 @@ export default {
               this.$http.post('/api/v1/login', {
                 authCode: res.code
               }).then(res => {
+                alert('免登：', JSON.stringify(res))
                 resolve(res.data)
               }).catch(err => {
                 reject(err)
@@ -361,7 +362,6 @@ export default {
     this.spinning = true
     this.spinningTip = '登录中...'
     this.getUserInfo().then(data => {
-      alert(JSON.stringify(data))
       this.userInfo = data
       // this.spinningTip = ''
       // this.initMsgList().then(data => {
