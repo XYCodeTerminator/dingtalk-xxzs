@@ -13,8 +13,28 @@ export default {
 
     }
   },
+  methods: {
+    fetchData() {
+      return new Promise((resolve, reject) => {
+        let {id, tag} = this.$route.params
+        this.$http.get('/msg/detail', {
+          params: { id, tag }
+        }).then(res => {
+          if (res.data.success) {
+            resolve(res.data)
+          } else {
+            reject(res.data)
+          }
+        }).catch(err => reject(err))
+      })
+    }
+  },
   mounted() {
-    console.log(this.$route)
+    this.fetchData().then(data => {
+      alert(JSON.stringify(data))
+    }).catch(err => {
+      alert(JSON.stringify(err))
+    })
   }
 }
 </script>

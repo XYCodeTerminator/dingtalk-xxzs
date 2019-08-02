@@ -280,7 +280,7 @@ export default {
       this.fileList = []
     },
     goMsgDetail(id) {
-      this.$router.push({ name: 'msgDetail', params: { id }})
+      this.$router.push({ name: 'msgDetail', params: { id, tag: this.msgBoxTag }})
     },
     send () {
       if (this.toUsers.length == 0) {
