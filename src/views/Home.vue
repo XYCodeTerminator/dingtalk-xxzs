@@ -363,14 +363,14 @@ export default {
     this.spinningTip = '登录中...'
     this.getUserInfo().then(data => {
       this.userInfo = data
-      // this.spinningTip = ''
-      // this.initMsgList().then(data => {
-      //   this.msgList = data
-      //   this.spinning = false
-      // }).catch(err => {
-      //   this.spinning = false
-      //   alert(JSON.stringify(err))
-      // })
+      this.spinningTip = ''
+      this.initMsgList().then(data => {
+        this.msgList = data
+        this.spinning = false
+      }).catch(err => {
+        this.spinning = false
+        alert(JSON.stringify(err))
+      })
     }).catch(err => {
       this.spinning = false
       alert(JSON.stringify(err))
