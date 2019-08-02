@@ -13,7 +13,7 @@
     <div class="content" v-if="!isInNewMsg">
       <div class="content-header">
         <div class="content-header-title">{{msgBoxLabel}}</div>
-        <a-icon @click="initMsgList" type="reload" style="color: #1FAFFF;font-size: 16px;" />
+        <a-icon @click="reloadMsgList" type="reload" style="color: #1FAFFF;font-size: 16px;" />
       </div>
       <a-list
         class="msg-list"
@@ -180,7 +180,8 @@ export default {
           this.$dd.runtime.permission.requestAuthCode({
             corpId,
             onSuccess: res => {
-              this.$http.post('/users/login', {
+              // this.$http.post('/users/login', {
+              this.$http.post('/v1/api/login', {
                 authCode: res.code
               }).then(res => {
                 resolve(res.data)
@@ -210,6 +211,16 @@ export default {
         }).catch(err => {
           reject(err)
         })
+      })
+    },
+    reloadMsgList() {
+      this.spinning = true
+      this.initMsgList().then(data => {
+        this.msgList = data
+        this.spinning = false
+      }).catch(err => {
+        this.spinning = false
+        alert(JSON.stringify(err))
       })
     },
     fetchMsg () {
@@ -363,7 +374,8 @@ export default {
       this.spinning = false
       alert(JSON.stringify(err))
     })
-    this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
+    // this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
+    this.$http.get('/v1/api/js_api_config?url=' + window.location.href)
       .then(res => {
         let config = res.data
         this.$dd.config({
