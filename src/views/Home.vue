@@ -26,7 +26,7 @@
           <a-button v-else @click="onLoadMore" size="small">加载更多</a-button>
         </div>
         <a-list-item slot="renderItem" slot-scope="msg" @click="goMsgDetail(msg.id)">
-          <a slot="actions" @click.stop="alert('删除')" style="color: red;">删除</a>
+          <a slot="actions" @click.stop="deleteMsg(msg.id)" style="color: red;">删除</a>
           <a-list-item-meta
             :description="msg.title.substring(0, 18)"
           >
@@ -182,7 +182,8 @@ export default {
             onSuccess: res => {
               // this.$http.post('/users/login', {
               this.$http.post('/api/v1/login', {
-                authCode: res.code
+                // authCode: res.code
+                auth_code: res.code
               }).then(res => {
                 alert('免登：', JSON.stringify(res))
                 resolve(res.data)
@@ -243,6 +244,13 @@ export default {
         })
       })
     },
+    deleteMsg(id) {
+      this.$http.get('/delete?id=' + id).then(res => {
+        alert(JSON.stringify(res))
+      }).catch(err => {
+        alert(JSON.stringify(err))
+      })
+    },
     onLoadMore () {
       this.loadingMore = true
       this.fetchMsg().then(data => {
@@ -281,7 +289,7 @@ export default {
       this.fileList = []
     },
     goMsgDetail (id) {
-      this.$router.push({ name: 'msgDetail', params: { id, tag: this.msgBoxTag } })
+      this.$router.push({ name: 'msgDetail', params: { id, tag: this.msgBoxTag, userInfo: this.userInfo } })
     },
     send () {
       if (this.toUsers.length === 0) {
@@ -349,9 +357,6 @@ export default {
         })
       })
     },
-    uploadFile () {
-
-    }
   },
   components: {
   },

@@ -8,7 +8,7 @@
       </div>
       <div class="info-item">
         <div class="item-label">收件人：</div>
-        <div class="item-content">{{msgDetail.to_name}}</div>
+        <div class="item-content">{{$route.params.tag === 1? $route.params.userInfo.userName : msgDetail.to_name}}</div>
       </div>
       <div class="info-item">
         <div class="item-label">时&nbsp;&nbsp;&nbsp;间：</div>
@@ -65,17 +65,17 @@ export default {
         fileList: [
           {
             file_name: 'aaa.png',
-            file_url: 'http://upt5yj.natappfree.ccpublic/upload/5044c1819fdfe746283237be27989780.png',
+            file_url: 'http://9bv9xj.natappfree.cc/upload/5044c1819fdfe746283237be27989780.png',
             size: 50449
           },
           {
-            file_name: 'aaa.png',
-            file_url: 'http://upt5yj.natappfree.ccpublic/upload/5044c1819fdfe746283237be27989780.png',
+            file_name: 'bbb.png',
+            file_url: 'http://9bv9xj.natappfree.cc/upload/5044c1819fdfe746283237be27989780.png',
             size: 50449
           },
           {
-            file_name: 'aaa.png',
-            file_url: 'http://upt5yj.natappfree.ccpublic/upload/5044c1819fdfe746283237be27989780.png',
+            file_name: 'ccc.png',
+            file_url: 'http://9bv9xj.natappfree.cc/upload/5044c1819fdfe746283237be27989780.png',
             size: 50449
           }
         ]
@@ -137,7 +137,7 @@ export default {
     }
   }
   .content {
-    padding: 10px 0;
+    padding: 10px 30px;
     font-size: 15px;
     border-bottom: 1px solid #eee;
   }
