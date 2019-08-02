@@ -17,7 +17,7 @@
     </div>
     <div class="content">{{msgDetail.content}}</div>
     <div class="file-list">
-      <a-list 
+      <a-list
         header="附件"
         size="small"
         itemLayout="horizontal"
@@ -31,7 +31,7 @@
         </a-list-item>
       </a-list>
     </div>
-    
+
   </div>
 </template>
 
@@ -39,7 +39,7 @@
 import { bytesToSize } from '@/utils'
 export default {
   name: 'msgDetail',
-  data() {
+  data () {
     return {
       msgDetail: {
         title: `标题标题标题标题标题标题标题标题标标题标题标题题标题标题`,
@@ -53,17 +53,17 @@ export default {
           李四,李四,李四,李四,李四,李四,李四,李四,李四,李四,李四,李四,李四,`,
         time: '2018 08-02 10:15',
         fileList: [
-          { 
+          {
             file_name: 'aaa.png',
             file_url: 'http://upt5yj.natappfree.ccpublic/upload/5044c1819fdfe746283237be27989780.png',
             size: 50449
           },
-          { 
+          {
             file_name: 'aaa.png',
             file_url: 'http://upt5yj.natappfree.ccpublic/upload/5044c1819fdfe746283237be27989780.png',
             size: 50449
           },
-          { 
+          {
             file_name: 'aaa.png',
             file_url: 'http://upt5yj.natappfree.ccpublic/upload/5044c1819fdfe746283237be27989780.png',
             size: 50449
@@ -74,9 +74,9 @@ export default {
   },
   methods: {
     bytesToSize,
-    fetchData() {
+    fetchData () {
       return new Promise((resolve, reject) => {
-        let {id, tag} = this.$route.params
+        let { id, tag } = this.$route.params
         this.$http.get('/msg/detail', {
           params: { id, tag }
         }).then(res => {
@@ -89,7 +89,7 @@ export default {
       })
     }
   },
-  mounted() {
+  mounted () {
     this.fetchData().then(data => {
       this.msgDetail = data
       // alert(JSON.stringify(data))

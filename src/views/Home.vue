@@ -30,7 +30,7 @@
           <a-list-item-meta
             :description="msg.title.substring(0, 18)"
           >
-            <div slot="title">{{msgBoxTag == 2 || msgBoxTag == 3 ? msg.to_name : msg.from_name}}</div>
+            <div slot="title">{{msgBoxTag === 2 || msgBoxTag === 3 ? msg.to_name : msg.from_name}}</div>
             <!-- <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /> -->
           </a-list-item-meta>
         </a-list-item>
@@ -51,7 +51,7 @@
         <div class="user-name">{{userInfo && userInfo.userName}}</div>
       </div>
       <div class="list">
-        <div class="list-item" :class="{ selected: item.label == msgBoxLabel }" @click="changeMsgBox(item)"  v-for="(item, i) in listItems" :key="i" >
+        <div class="list-item" :class="{ selected: item.label === msgBoxLabel }" @click="changeMsgBox(item)"  v-for="(item, i) in listItems" :key="i" >
           <a-icon :type="item.icon" style="color: #1FAFFF;font-size: 18px;" />
           <div class="label">{{item.label}}</div>
         </div>
@@ -142,9 +142,9 @@ export default {
   },
   methods: {
     handleChange (info) {
-      let file = info.file
+      // let file = info.file
       let fileList = [...info.fileList]
-      console.log(fileList)
+      // console.log(fileList)
       fileList = fileList.map(file => {
         if (file.response) {
           file.url = file.response.data.url
@@ -196,7 +196,6 @@ export default {
           })
         })
       })
-
     },
     initMsgList () {
       let start = 0
@@ -214,7 +213,7 @@ export default {
         })
       })
     },
-    reloadMsgList() {
+    reloadMsgList () {
       this.spinning = true
       this.initMsgList().then(data => {
         this.msgList = data
@@ -253,6 +252,7 @@ export default {
       }).catch(err => {
         this.loadingMore = false
         this.$message.error('加载数据失败')
+        alert(JSON.stringify(err))
       })
     },
     newMsg () {
@@ -280,11 +280,11 @@ export default {
       this.toUsers = []
       this.fileList = []
     },
-    goMsgDetail(id) {
-      this.$router.push({ name: 'msgDetail', params: { id, tag: this.msgBoxTag }})
+    goMsgDetail (id) {
+      this.$router.push({ name: 'msgDetail', params: { id, tag: this.msgBoxTag } })
     },
     send () {
-      if (this.toUsers.length == 0) {
+      if (this.toUsers.length === 0) {
         this.$message.error('请选择收信人')
       } else if (!this.title) {
         this.$message.error('主题不能为空')
@@ -385,10 +385,11 @@ export default {
           jsApiList: [
             'runtime.info',
             'biz.contact.complexPicker',
-            'biz.contact.choose' ]
+            'biz.contact.choose'
+          ]
         })
       }).catch(err => {
-        alert('err')
+        alert(JSON.stringify(err))
       })
     this.$dd.error(function (err) {
       alert(JSON.stringify(err))
