@@ -181,7 +181,7 @@ export default {
             corpId,
             onSuccess: res => {
               // this.$http.post('/users/login', {
-              this.$http.post('/v1/api/login', {
+              this.$http.post('/api/v1/login', {
                 authCode: res.code
               }).then(res => {
                 resolve(res.data)
@@ -375,7 +375,7 @@ export default {
       alert(JSON.stringify(err))
     })
     // this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
-    this.$http.get('/v1/api/js_api_config?url=' + window.location.href)
+    this.$http.get('/api/v1/js_api_config?url=' + window.location.href)
       .then(res => {
         let config = res.data
         this.$dd.config({
