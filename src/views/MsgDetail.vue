@@ -18,11 +18,13 @@
     <div class="content">{{msgDetail.content}}</div>
     <div class="file-list">
       <a-list 
+        header="附件"
+        size="small"
         itemLayout="horizontal"
         :dataSource="msgDetail.fileList"
       >
         <a-list-item slot="renderItem" slot-scope="file">
-          <a-list-item-meta :description="file.size">
+          <a-list-item-meta :description="bytesToSize(file.size)">
             <a slot="title" :href="file.url">{{file.file_name}}</a>
             <a-icon slot="avatar" type="paper-clip" style="color: #1FAFFF;font-size: 22px;" />
           </a-list-item-meta>
@@ -34,15 +36,13 @@
 </template>
 
 <script>
+import { bytesToSize } from '@/utils'
 export default {
   name: 'msgDetail',
   data() {
     return {
       msgDetail: {
-        title: `标题标题标题标题标题标题标题标题标标题标题标题题标题标题
-          题标题标题题标题标题题标题标题题标题标题题标题标题题标题标题题标
-          题标题标题题标题标题题标题标题题标题标题题标题标题题标题标题题标
-        `,
+        title: `标题标题标题标题标题标题标题标题标标题标题标题题标题标题`,
         content: `内容内容内容内容内容内容内容内容内容内容内容内容内容内
           内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
           内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
@@ -56,18 +56,24 @@ export default {
           { 
             file_name: 'aaa.png',
             file_url: 'http://upt5yj.natappfree.ccpublic/upload/5044c1819fdfe746283237be27989780.png',
-            size: 23131323
+            size: 50449
           },
           { 
             file_name: 'aaa.png',
             file_url: 'http://upt5yj.natappfree.ccpublic/upload/5044c1819fdfe746283237be27989780.png',
-            size: 23131323
+            size: 50449
+          },
+          { 
+            file_name: 'aaa.png',
+            file_url: 'http://upt5yj.natappfree.ccpublic/upload/5044c1819fdfe746283237be27989780.png',
+            size: 50449
           }
         ]
       }
     }
   },
   methods: {
+    bytesToSize,
     fetchData() {
       return new Promise((resolve, reject) => {
         let {id, tag} = this.$route.params
@@ -99,6 +105,7 @@ export default {
     padding: 10px;
   }
   .title {
+    margin: 0 auto;
     padding: 20px;
     font-size: 16px;
     font-weight: 500;
@@ -123,5 +130,8 @@ export default {
     padding: 10px 0;
     font-size: 15px;
     border-bottom: 1px solid #eee;
+  }
+  .file-list {
+    padding: 10px;
   }
 </style>
