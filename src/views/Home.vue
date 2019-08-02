@@ -38,7 +38,7 @@
     </div>
 
     <div class="spin">
-      <a-spin class="spin" :spinning="spinning" tip="登录中..." size="large" />
+      <a-spin class="spin" :spinning="spinning" :tip="spinningTip" size="large" />
     </div>
     <a-drawer
       placement="left"
@@ -117,6 +117,7 @@ export default {
       newMsgVisible: false,
       visible: false,
       spinning: false,
+      spinningTip: '',
       userInfo: null,
       msgBoxLabel: '收件箱',
       msgBoxTag: 1,
@@ -163,27 +164,17 @@ export default {
       this.msgBoxTag = item.tag
       this.msgBoxLabel = item.label
       this.msgList = []
-      this.initMsgList()
+      this.spinning = true
+      this.spinningTip = ''
+      this.initMsgList().then(data => {
+        this.msgList = data
+        this.spinning = false
+      }).catch(err => {
+        this.spinning = false
+        alert(JSON.stringify(err))
+      })
     },
     getUserInfo () {
-      // this.spinning = true
-      // this.$dd.runtime.permission.requestAuthCode({
-      //   corpId,
-      //   onSuccess: res => {
-      //     this.$http.post('/users/login', {
-      //       authCode: res.code
-      //     }).then(res => {
-      //       this.spinning = false
-      //       this.userInfo = res.data
-      //       this.initMsgList()
-      //     }).catch(err => {
-      //       alert(JSON.stringify(err))
-      //     })
-      //   },
-      //   onFail: err => {
-      //     alert(JSON.stringify(err))
-      //   }
-      // })
       return new Promise((resolve, reject) => {
         this.$dd.ready(() => {
           this.$dd.runtime.permission.requestAuthCode({
@@ -206,21 +197,19 @@ export default {
 
     },
     initMsgList () {
-      // this.loadingMore = true
       let start = 0
-      this.$http.get('/msg/list', {
-        params: {
-          tag: this.msgBoxTag,
-          start,
-          size: 5
-        }
-      }).then(res => {
-        // alert(JSON.stringify(res.data))
-        // this.loadingMore = false
-        this.msgList = res.data.data
-      }).catch(err => {
-        // this.loadingMore = false
-        alert(JSON.stringify(err))
+      return new Promise((resolve, reject) => {
+        this.$http.get('/msg/list', {
+          params: {
+            tag: this.msgBoxTag,
+            start,
+            size: 5
+          }
+        }).then(res => {
+          resolve(res.data.data)
+        }).catch(err => {
+          reject(err)
+        })
       })
     },
     fetchMsg () {
@@ -358,19 +347,18 @@ export default {
     this.from = this.$form.createForm(this)
   },
   mounted () {
-    // this.$dd.ready(() => {
-    //   this.getUserInfo()
-    // })
-    // this.spinning = true
-    // if (this.userInfo) {
-    //   this.spinning = false
-    //   this.initMsgList()
-    //   return
-    // }
+    this.spinning = true
+    this.spinningTip = '登录中...'
     this.getUserInfo().then(data => {
-      this.spinning = false
       this.userInfo = data
-      this.initMsgList()
+      this.spinningTip = ''
+      this.initMsgList().then(data => {
+        this.msgList = data
+        this.spinning = false
+      }).catch(err => {
+        this.spinning = false
+        alert(JSON.stringify(err))
+      })
     }).catch(err => {
       this.spinning = false
       alert(JSON.stringify(err))

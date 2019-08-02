@@ -1,7 +1,6 @@
 <template>
   <div class="detail">
-    msgDetail:
-    {{$route.params.id}}
+    {{msgDetail}}
   </div>
 </template>
 
@@ -10,7 +9,7 @@ export default {
   name: 'msgDetail',
   data() {
     return {
-
+      msgDetail: null
     }
   },
   methods: {
@@ -31,7 +30,8 @@ export default {
   },
   mounted() {
     this.fetchData().then(data => {
-      alert(JSON.stringify(data))
+      this.msgDetail = data
+      // alert(JSON.stringify(data))
     }).catch(err => {
       alert(JSON.stringify(err))
     })
