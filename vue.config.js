@@ -13,7 +13,7 @@ module.exports = {
     proxy: {
       '/': {
         // target: 'http://9bv9xj.natappfree.cc',
-        target: 'https://ytsw.info:4449',
+        target: 'http://ytsw.info:4449',
         ws: false,
         changeOrigin: true
       }
