@@ -185,8 +185,8 @@ export default {
                 // authCode: res.code
                 auth_code: res.code
               }).then(res => {
-                alert('免登：', JSON.stringify(res))
-                resolve(res.data)
+                alert(JSON.stringify(res))
+                resolve(res.data.data)
               }).catch(err => {
                 reject(err)
               })
@@ -383,8 +383,9 @@ export default {
     // this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
     this.$http.get('/api/v1/js_api_config?url=' + window.location.href)
       .then(res => {
-        alert(JSON.stringify(res))
-        let config = res.data
+        // alert(JSON.stringify(res))
+        // let config = res.data
+        let config = res.data.data
         this.$dd.config({
           ...config,
           jsApiList: [
