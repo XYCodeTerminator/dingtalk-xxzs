@@ -12,8 +12,8 @@ module.exports = {
     port: 8080,
     proxy: {
       '/': {
-        target: 'http://9bv9xj.natappfree.cc',
-        // target: 'http://ytsw.info:4449',
+        // target: 'http://9bv9xj.natappfree.cc',
+        target: 'http://ytsw.info:4449',
         ws: false,
         changeOrigin: true
       }
