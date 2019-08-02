@@ -185,7 +185,7 @@ export default {
                 // authCode: res.code
                 auth_code: res.code
               }).then(res => {
-                alert(JSON.stringify(res))
+                // alert(JSON.stringify(res))
                 resolve(res.data.data)
               }).catch(err => {
                 reject(err)
@@ -343,7 +343,7 @@ export default {
           responseUserOnly: false,
           // startWithDepartmentId: 0,
           onSuccess: result => {
-            // alert(JSON.stringify(result))
+            alert(JSON.stringify(result))
             if (result.users) {
               let toUsers = result.users
               this.toUsers = toUsers
@@ -398,7 +398,7 @@ export default {
         alert(JSON.stringify(err))
       })
     this.$dd.error(function (err) {
-      alert(JSON.stringify(err))
+      alert('jsOAuth: ', JSON.stringify(err))
     })
   }
 }
