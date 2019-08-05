@@ -11,11 +11,16 @@ module.exports = {
     disableHostCheck: true,
     port: 8080,
     proxy: {
-      '/': {
-        // target: 'http://9bv9xj.natappfree.cc',
-        target: 'http://ytsw.info:4449',
+      '/test': {
+        target: 'http://9bv9xj.natappfree.cc',
+        // target: 'http://ytsw.info:4449',
         ws: false,
-        changeOrigin: true
+        changeOrigin: true,
+      },
+      '/api': {
+        target: 'http://ytsw.info:4449/api/v1',
+        ws: false,
+        changeOrigin: true,
       }
     }
   }
