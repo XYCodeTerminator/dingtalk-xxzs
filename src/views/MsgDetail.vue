@@ -36,7 +36,7 @@
           <a-icon type="paper-clip" style="color: #1FAFFF;font-size: 22px;" />
           <div class="item-content">
             <a class="content-title" :href="file.file_url" :download="file.file_name">{{file.file_name}}</a>
-            <div class="content-desc">{{bytesToSize(+file.size)}}</div>
+            <div class="content-desc">{{bytesToSize(+file.file_size)}}</div>
           </div>
         </div>
       </div>
@@ -51,35 +51,7 @@ export default {
   name: 'msgDetail',
   data () {
     return {
-      msgDetail: {
-        title: `标题标题标题标题标题标题标题标题标标题标题标题题标题标题`,
-        content: `内容内容内容内容内容内容内容内容内容内容内容内容内容内
-          内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
-          内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
-          内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
-        `,
-        from_name: '张三',
-        to_name: `李四,李四,李四,李四,李四,李四,李四,李四,李四,李四,李四,
-          李四,李四,李四,李四,李四,李四,李四,李四,李四,李四,李四,李四,李四,`,
-        time: '2019-08-02 09:58:07',
-        fileList: [
-          {
-            file_name: 'aaa.png',
-            file_url: 'http://9bv9xj.natappfree.cc/upload/5044c1819fdfe746283237be27989780.png',
-            size: 50449
-          },
-          {
-            file_name: 'bbb.png',
-            file_url: 'http://9bv9xj.natappfree.cc/upload/5044c1819fdfe746283237be27989780.png',
-            size: 50449
-          },
-          {
-            file_name: 'ccc.png',
-            file_url: 'http://9bv9xj.natappfree.cc/upload/5044c1819fdfe746283237be27989780.png',
-            size: 50449
-          }
-        ]
-      }
+      msgDetail: {}
     }
   },
   methods: {
