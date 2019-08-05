@@ -383,11 +383,16 @@ export default {
     // this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
     this.$http.get('/api/js_api_config?url=' + window.location.href)
       .then(res => {
-        alert(JSON.stringify(res.data.data))
+        // alert(JSON.stringify(res.data.data))
         // let config = res.data
         let config = res.data.data
         this.$dd.config({
-          ...config,
+          // ...config,
+          agentId: config.agentId,
+          corpId: config.corpId,
+          timeStamp: config.timeStamp,
+          nonceStr: config.nonceStr,
+          signature: config.signature,
           jsApiList: [
             'runtime.info',
             'biz.contact.complexPicker',
