@@ -97,7 +97,7 @@
             :fileList="fileList"
             :defaultFileList="defaultFileList">
             <div>
-              <a-icon @click="uploadFile" type="paper-clip" style="color: #1FAFFF;font-size: 22px;" />
+              <a-icon type="paper-clip" style="color: #1FAFFF;font-size: 22px;" />
             </div>
           </a-upload>
         </div>
