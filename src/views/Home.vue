@@ -181,7 +181,7 @@ export default {
             corpId,
             onSuccess: res => {
               // this.$http.post('/users/login', {
-              this.$http.post('/test/login', {
+              this.$http.post('/test/users/login', {
                 // authCode: res.code
                 auth_code: res.code
               }).then(res => {
@@ -245,7 +245,7 @@ export default {
       })
     },
     deleteMsg(id) {
-      this.$http.get('/test/delete?id=' + id).then(res => {
+      this.$http.get('/test/msg/delete?id=' + id).then(res => {
         alert(JSON.stringify(res))
       }).catch(err => {
         alert(JSON.stringify(err))
@@ -381,7 +381,7 @@ export default {
       alert(JSON.stringify(err))
     })
     // this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
-    this.$http.get('/test/js_api_config?url=' + window.location.href)
+    this.$http.get('/test/dingtalk/js_api_config?url=' + window.location.href)
       .then(res => {
         alert(JSON.stringify(res.data))
         let config = res.data
