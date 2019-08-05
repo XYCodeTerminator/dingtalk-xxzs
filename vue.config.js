@@ -15,6 +15,9 @@ module.exports = {
         target: 'http://xez7i3.natappfree.cc',
         ws: false,
         changeOrigin: true,
+        pathRewrite: {
+          '^/test': '/'
+        }
       },
       '/api': {
         target: 'http://ytsw.info:4449',
