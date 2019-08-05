@@ -87,7 +87,7 @@ export default {
     fetchData () {
       return new Promise((resolve, reject) => {
         let { id, tag } = this.$route.params
-        this.$http.get('/msg/detail', {
+        this.$http.get('/test/msg/detail', {
           params: { id, tag }
         }).then(res => {
           if (res.data.success) {
