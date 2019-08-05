@@ -182,8 +182,8 @@ export default {
             onSuccess: res => {
               // this.$http.post('/users/login', {
               this.$http.post('/test/users/login', {
-                // authCode: res.code
-                auth_code: res.code
+                authCode: res.code
+                // auth_code: res.code
               }).then(res => {
                 alert(JSON.stringify(res.data))
                 resolve(res.data.data)
