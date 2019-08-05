@@ -36,7 +36,7 @@
           <a-icon type="paper-clip" style="color: #1FAFFF;font-size: 22px;" />
           <div class="item-content">
             <a class="content-title" :href="file.file_url" :download="file.file_name">{{file.file_name}}</a>
-            <div class="content-desc">{{bytesToSize(file.size)}}</div>
+            <div class="content-desc">{{bytesToSize(+file.size)}}</div>
           </div>
         </div>
       </div>
