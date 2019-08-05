@@ -18,9 +18,12 @@ module.exports = {
         changeOrigin: true,
       },
       '/api': {
-        target: 'http://ytsw.info:4449/api/v1',
+        target: 'http://ytsw.info:4449',
         ws: false,
         changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/api/v1'
+        }
       }
     }
   }
