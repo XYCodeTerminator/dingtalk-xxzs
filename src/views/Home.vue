@@ -185,7 +185,7 @@ export default {
                 // authCode: res.code
                 auth_code: res.code
               }).then(res => {
-                // alert(JSON.stringify(res))
+                alert(JSON.stringify(res.data))
                 resolve(res.data.data)
               }).catch(err => {
                 reject(err)
