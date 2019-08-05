@@ -92,7 +92,7 @@
         <div class="upload-files">
           <a-upload
             :multiple="true"
-            action="/files/upload"
+            action="/test/files/upload"
             @change="handleChange"
             :fileList="fileList"
             :defaultFileList="defaultFileList">
@@ -181,7 +181,7 @@ export default {
             corpId,
             onSuccess: res => {
               // this.$http.post('/users/login', {
-              this.$http.post('/api/login', {
+              this.$http.post('/test/login', {
                 // authCode: res.code
                 auth_code: res.code
               }).then(res => {
@@ -201,7 +201,7 @@ export default {
     initMsgList () {
       let start = 0
       return new Promise((resolve, reject) => {
-        this.$http.get('/msg/list', {
+        this.$http.get('/test/msg/list', {
           params: {
             tag: this.msgBoxTag,
             start,
@@ -227,7 +227,7 @@ export default {
     fetchMsg () {
       return new Promise((resolve, reject) => {
         let start = this.msgList.length || 0
-        this.$http.get('/msg/list', {
+        this.$http.get('/test/msg/list', {
           params: {
             tag: this.msgBoxTag,
             start,
@@ -245,7 +245,7 @@ export default {
       })
     },
     deleteMsg(id) {
-      this.$http.get('/delete?id=' + id).then(res => {
+      this.$http.get('/test/delete?id=' + id).then(res => {
         alert(JSON.stringify(res))
       }).catch(err => {
         alert(JSON.stringify(err))
@@ -300,7 +300,7 @@ export default {
         this.$message.error('正文不能为空')
       } else {
         this.isSendBtnDisabled = false
-        this.$http.post('/msg/send', {
+        this.$http.post('/test/msg/send', {
           title: this.title,
           content: this.content,
           fileList: this.fileList,
@@ -381,18 +381,18 @@ export default {
       alert(JSON.stringify(err))
     })
     // this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
-    this.$http.get('/api/js_api_config?url=' + window.location.href)
+    this.$http.get('/test/js_api_config?url=' + window.location.href)
       .then(res => {
-        alert(JSON.stringify(res.data.data))
-        // let config = res.data
-        let config = res.data.data
+        alert(JSON.stringify(res.data))
+        let config = res.data
+        // let config = res.data.data
         this.$dd.config({
-          // ...config,
-          agentId: config.agentId,
-          corpId: config.corpId,
-          timeStamp: config.timeStamp,
-          nonceStr: config.nonceStr,
-          signature: config.signature,
+          ...config,
+          // agentId: config.agentId,
+          // corpId: config.corpId,
+          // timeStamp: config.timeStamp,
+          // nonceStr: config.nonceStr,
+          // signature: config.signature,
           jsApiList: [
             'runtime.info',
             'biz.contact.complexPicker',
