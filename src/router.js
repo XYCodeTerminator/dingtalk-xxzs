@@ -12,7 +12,7 @@ export default new Router({
       component: Home
     },
     {
-      path: '/msg/:id',
+      path: '/msg/id/:id/tag/:tag',
       name: 'msgDetail',
       component: () => import('@/views/MsgDetail.vue')
     }
