@@ -46,16 +46,30 @@
       @close="onClose"
       :visible="visible"
     >
-      <div slot="title" class="user">
-        <img class="user-avatar" :src="userInfo && userInfo.avatar" alt="👮‍">
-        <div class="user-name">{{userInfo && userInfo.name}}</div>
-      </div>
-      <div class="list">
-        <div class="list-item" :class="{ selected: item.label === msgBoxLabel }" @click="changeMsgBox(item)"  v-for="(item, i) in listItems" :key="i" >
-          <a-icon :type="item.icon" style="color: #1FAFFF;font-size: 18px;" />
-          <div class="label">{{item.label}}</div>
+      <div class="nav-left">
+        <div class="user">
+          <img class="user-avatar" :src="userInfo && userInfo.avatar" alt="👮‍">
+          <div class="user-name">{{userInfo && userInfo.name}}</div>
+        </div>
+        <div class="list">
+          <div class="list-title">文件夹</div>
+          <div class="list-item" :class="{ selected: item.label === msgBoxLabel }" @click="changeMsgBox(item)"  v-for="(item, i) in listItems" :key="i" >
+            <a-icon :type="item.icon" style="color: #1FAFFF;font-size: 18px;" />
+            <div class="label">{{item.label}}</div>
+          </div>
+          <div class="list-title" style="margin-top: 20px;">设置</div>
+          <div class="list-item">
+            <a-icon type="user" style="color: #1FAFFF;font-size: 18px;" />
+            <div class="label">部门同步</div>
+          </div>
+          <div class="list-item">
+            <a-icon type="user" style="color: #1FAFFF;font-size: 18px;" />
+            <div class="label">用户同步</div>
+          </div>
         </div>
       </div>
+      
+      
     </a-drawer>
 
     <a-drawer
@@ -459,7 +473,14 @@ export default {
     text-align: center;
     margin: auto;
   }
+  .nav-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
   .user {
+    padding: 20px;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -473,12 +494,17 @@ export default {
     }
   }
   .list {
+    .list-title {
+      margin-left: 20px;
+      font-size: 13px;
+      color: #999;
+    }
     .list-item {
       display: flex;
       flex-flow: row nowrap;
       align-items: center;
       height: 30px;
-      padding: 20px 0;
+      padding: 20px;
       border-bottom: solid 1px #eee;
       &.selected {
         background-color: #eee;
