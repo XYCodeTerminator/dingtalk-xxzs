@@ -309,7 +309,7 @@ export default {
         })
           .then(res => {
           alert(JSON.stringify(res))
-            if (res.data.success) {
+            if (res.data.msg == 'ok') {
               this.$message.success('发送成功')
               this.newMsgVisible = true
               this.isInNewMsg = true
@@ -341,7 +341,7 @@ export default {
           responseUserOnly: false,
           // startWithDepartmentId: 0,
           onSuccess: result => {
-            alert(JSON.stringify(result))
+            // alert(JSON.stringify(result))
             if (result.users) {
               let toUsers = result.users
               this.toUsers = toUsers
@@ -365,7 +365,7 @@ export default {
     this.spinning = true
     this.spinningTip = '登录中...'
     this.getUserInfo().then(data => {
-      alert(JSON.stringify(data))
+      // alert(JSON.stringify(data))
       this.userInfo = data
       this.spinningTip = ''
       this.initMsgList().then(data => {
@@ -382,10 +382,10 @@ export default {
     // this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
     this.$http.get('/api/js_api_config?url=' + window.location.href)
       .then(res => {
-        alert(JSON.stringify(res.data.data))
+        // alert(JSON.stringify(res.data.data))
         // let config = res.data
         let config = JSON.parse(res.data.data)
-        alert(config.timeStamp)
+        // alert(config.timeStamp)
         this.$dd.config({
           // ...config,
           agentId: config.agentId,
