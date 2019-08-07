@@ -384,7 +384,7 @@ export default {
       .then(res => {
         alert(JSON.stringify(res.data.data))
         // let config = res.data
-        let config = res.data.data
+        let config = JSON.parse(res.data.data)
         alert(config.timeStamp)
         this.$dd.config({
           // ...config,
