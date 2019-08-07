@@ -232,6 +232,7 @@ export default {
             size: 5
           }
         }).then(res => {
+          alert(JSON.stringify(res))
           if (res.data.success) {
             resolve(res.data.data)
           } else {
@@ -252,7 +253,6 @@ export default {
     onLoadMore () {
       this.loadingMore = true
       this.fetchMsg().then(data => {
-        alert(JSON.stringify(data))
         this.msgList = this.msgList.concat(data)
         this.loadingMore = false
       }).catch(err => {
