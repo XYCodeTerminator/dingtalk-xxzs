@@ -58,18 +58,18 @@
             <div class="label">{{item.label}}</div>
           </div>
           <div class="list-title" style="margin-top: 20px;">设置</div>
-          <div class="list-item">
-            <a-icon type="user" style="color: #1FAFFF;font-size: 18px;" />
+          <a class="list-item" @click="syncDept" :disabled="syncDeptDisabled">
+            <a-icon type="cloud-download" style="color: #1FAFFF;font-size: 18px;" />
             <div class="label">部门同步</div>
-          </div>
-          <div class="list-item">
-            <a-icon type="user" style="color: #1FAFFF;font-size: 18px;" />
+            <a-icon type="loading" v-if="syncDeptDisabled" style="color: #1FAFFF;font-size: 18px;" />
+          </a>
+          <a class="list-item" @click="syncUser" :disabled="syncUserDisabled">
+            <a-icon type="cloud-download" style="color: #1FAFFF;font-size: 18px;" />
             <div class="label">用户同步</div>
-          </div>
+            <a-icon type="loading" v-if="syncUserDisabled" style="color: #1FAFFF;font-size: 18px;" />
+          </a>
         </div>
       </div>
-      
-      
     </a-drawer>
 
     <a-drawer
@@ -117,6 +117,16 @@
         </div>
       </div>
     </a-drawer>
+
+    <!-- <a-modal
+      :title="syncTitle"
+      v-model="syncModalVisible"
+      @ok="syncOk"
+    >
+      <p>Some contents...</p>
+      <p>Some contents...</p>
+      <p>Some contents...</p>
+    </a-modal> -->
   </div>
 </template>
 
@@ -126,6 +136,8 @@ export default {
   name: 'home',
   data () {
     return {
+      syncUserDisabled: false,
+      syncDeptDisabled: false,
       isSendBtnDisabled: true,
       isInNewMsg: false,
       newMsgVisible: false,
@@ -155,6 +167,36 @@ export default {
     }
   },
   methods: {
+    syncDept() {
+      this.syncDeptDisabled = true
+      this.$success({
+        title: '部门同步成功',
+        content: (  // JSX support
+          <div>
+            <p>some messages...some messages...</p>
+            <p>some messages...some messages...</p>
+          </div>
+        ),
+        onOk: () => {
+          this.syncDeptDisabled = false
+        }
+      });
+    },
+    syncUser() {
+      this.syncUserDisabled = true
+      this.$success({
+        title: '部门同步成功',
+        content: (  // JSX support
+          <div>
+            <p>some messages...some messages...</p>
+            <p>some messages...some messages...</p>
+          </div>
+        ),
+        onOk: () => {
+          this.syncUserDisabled = false
+        }
+      });
+    },
     handleChange (info) {
       // let file = info.file
       let fileList = [...info.fileList]
@@ -506,6 +548,7 @@ export default {
       height: 30px;
       padding: 20px;
       border-bottom: solid 1px #eee;
+      color: #656565;
       &.selected {
         background-color: #eee;
       }
