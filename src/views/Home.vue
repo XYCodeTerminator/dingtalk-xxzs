@@ -92,7 +92,7 @@
         <div class="upload-files">
           <a-upload
             :multiple="true"
-            action="/api/files/upload"
+            action="/api/file/upload"
             @change="handleChange"
             :fileList="fileList"
             :defaultFileList="defaultFileList">
