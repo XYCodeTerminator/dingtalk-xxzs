@@ -48,7 +48,7 @@
     >
       <div slot="title" class="user">
         <img class="user-avatar" :src="userInfo && userInfo.avatar" alt="👮‍">
-        <div class="user-name">{{userInfo && userInfo.userName}}</div>
+        <div class="user-name">{{userInfo && userInfo.name}}</div>
       </div>
       <div class="list">
         <div class="list-item" :class="{ selected: item.label === msgBoxLabel }" @click="changeMsgBox(item)"  v-for="(item, i) in listItems" :key="i" >
@@ -305,8 +305,8 @@ export default {
           fileList: this.fileList,
           to_name: this.toUserName,
           to_id: this.toUserId,
-          form_name: this.userInfo.userName,
-          from_id: this.userInfo.userId
+          form_name: this.userInfo.name,
+          from_id: this.userInfo.userid
         })
           .then(res => {
           alert(JSON.stringify(res))
