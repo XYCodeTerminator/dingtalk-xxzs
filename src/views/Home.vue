@@ -304,7 +304,7 @@ export default {
           fileList: this.fileList,
           to_name: this.toUserName,
           to_id: this.toUserId,
-          form_name: this.userInfo.name,
+          from_name: this.userInfo.name,
           from_id: this.userInfo.userid
         })
           .then(res => {
