@@ -309,7 +309,7 @@ export default {
           fromUserId: this.userInfo.userId
         })
           .then(res => {
-          // alert(JSON.stringify(res))
+          alert(JSON.stringify(res))
             if (res.data.success) {
               this.$message.success('发送成功')
               this.newMsgVisible = true
