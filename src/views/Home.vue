@@ -385,6 +385,7 @@ export default {
         alert(JSON.stringify(res.data.data))
         // let config = res.data
         let config = res.data.data
+        alert(config.timeStamp)
         this.$dd.config({
           // ...config,
           agentId: config.agentId,
