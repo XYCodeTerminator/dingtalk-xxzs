@@ -184,7 +184,6 @@ export default {
                 // authCode: res.code
                 auth_code: res.code
               }).then(res => {
-                alert(JSON.stringify(res.data))
                 resolve(res.data.data)
               }).catch(err => {
                 reject(err)
@@ -366,6 +365,7 @@ export default {
     this.spinning = true
     this.spinningTip = '登录中...'
     this.getUserInfo().then(data => {
+      alert(JSON.stringify(data))
       this.userInfo = data
       this.spinningTip = ''
       this.initMsgList().then(data => {
