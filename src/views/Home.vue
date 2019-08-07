@@ -92,7 +92,7 @@
         <div class="upload-files">
           <a-upload
             :multiple="true"
-            action="/test/files/upload"
+            action="/api/files/upload"
             @change="handleChange"
             :fileList="fileList"
             :defaultFileList="defaultFileList">
@@ -303,10 +303,10 @@ export default {
           title: this.title,
           content: this.content,
           fileList: this.fileList,
-          toUserName: this.toUserName,
-          toUserId: this.toUserId,
-          fromUserName: this.userInfo.userName,
-          fromUserId: this.userInfo.userId
+          to_name: this.toUserName,
+          to_id: this.toUserId,
+          form_name: this.userInfo.userName,
+          from_id: this.userInfo.userId
         })
           .then(res => {
           alert(JSON.stringify(res))
