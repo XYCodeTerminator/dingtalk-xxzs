@@ -180,10 +180,9 @@ export default {
           this.$dd.runtime.permission.requestAuthCode({
             corpId,
             onSuccess: res => {
-              // this.$http.post('/users/login', {
-              this.$http.post('/test/users/login', {
-                authCode: res.code
-                // auth_code: res.code
+              this.$http.post('/api/login', {
+                // authCode: res.code
+                auth_code: res.code
               }).then(res => {
                 alert(JSON.stringify(res.data))
                 resolve(res.data.data)
@@ -201,7 +200,7 @@ export default {
     initMsgList () {
       let start = 0
       return new Promise((resolve, reject) => {
-        this.$http.get('/test/msg/list', {
+        this.$http.get('/api/msg/list', {
           params: {
             tag: this.msgBoxTag,
             start,
@@ -227,7 +226,7 @@ export default {
     fetchMsg () {
       return new Promise((resolve, reject) => {
         let start = this.msgList.length || 0
-        this.$http.get('/test/msg/list', {
+        this.$http.get('/api/msg/list', {
           params: {
             tag: this.msgBoxTag,
             start,
@@ -245,7 +244,7 @@ export default {
       })
     },
     deleteMsg(id) {
-      this.$http.get('/test/msg/delete?id=' + id).then(res => {
+      this.$http.get('/api/msg/delete?id=' + id).then(res => {
         alert(JSON.stringify(res))
       }).catch(err => {
         alert(JSON.stringify(err))
@@ -300,7 +299,7 @@ export default {
         this.$message.error('正文不能为空')
       } else {
         this.isSendBtnDisabled = false
-        this.$http.post('/test/msg/send', {
+        this.$http.post('/api/msg/send', {
           title: this.title,
           content: this.content,
           fileList: this.fileList,
@@ -381,7 +380,7 @@ export default {
       alert(JSON.stringify(err))
     })
     // this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
-    this.$http.get('/test/dingtalk/js_api_config?url=' + window.location.href)
+    this.$http.get('/api/js_api_config?url=' + window.location.href)
       .then(res => {
         alert(JSON.stringify(res.data))
         // let config = res.data
