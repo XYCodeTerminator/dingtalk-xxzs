@@ -289,7 +289,7 @@ export default {
             size: 5
           }
         }).then(res => {
-          alert(JSON.stringify(res))
+          // alert(JSON.stringify(res))
           if (res.data.msg == 'ok') {
             resolve(res.data.data)
           } else {
@@ -310,7 +310,7 @@ export default {
     onLoadMore () {
       this.loadingMore = true
       this.fetchMsg().then(data => {
-        alert(JSON.stringify(data))
+        // alert(JSON.stringify(data))
         this.msgList = this.msgList.concat(data.lists)
         this.loadingMore = false
       }).catch(err => {
@@ -345,7 +345,6 @@ export default {
       this.fileList = []
     },
     goMsgDetail (id) {
-      alert('goDetail')
       this.$router.push({ name: 'msgDetail', params: { id, tag: this.msgBoxTag, userInfo: this.userInfo } })
     },
     send () {
