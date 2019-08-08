@@ -61,7 +61,7 @@
         <div class="new-msg-nav">
           <a @click="cancelReply">取消</a>
           <div class="nav-title">发消息</div>
-          <a @click="reply">回复</a>
+          <a @click="reply" :disabled="isSendBtnDisabled">回复</a>
         </div>
         <div class="to">
           <div class="to-name">收信人：</div>
@@ -103,6 +103,7 @@ export default {
   name: 'msgDetail',
   data () {
     return {
+      isSendBtnDisabled: false,
       userInfo: {},
       msgDetail: {},
       newMsgVisible: false,
@@ -122,6 +123,7 @@ export default {
       this.newMsgVisible = false
     },
     reply() {
+      this.isSendBtnDisabled = true
       if (!this.title) {
         this.$message.error('主题不能为空')
       } else if (!this.content) {
@@ -140,11 +142,13 @@ export default {
             this.$message.success('回复成功')
             this.newMsgVisible = true
             this.isInNewMsg = true
-            this.newMsgVisible = false
+            this.isSendBtnDisabled = false
           } else {
+            this.isSendBtnDisabled = false
             this.$message.error('回复失败')
           }
         }).catch(err => {
+          this.isSendBtnDisabled = false
           alert(JSON.stringify(err))
         })
       }

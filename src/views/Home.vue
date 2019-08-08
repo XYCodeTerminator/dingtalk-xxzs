@@ -79,7 +79,7 @@
         <div class="new-msg-nav">
           <a @click="cancelSend">取消</a>
           <div class="nav-title">发消息</div>
-          <a @click="send">发送</a>
+          <a @click="send" :disabled="isSendBtnDisabled">发送</a>
         </div>
         <div class="to">
           <div class="to-name">收信人：</div>
@@ -132,7 +132,7 @@ export default {
   data () {
     return {
       syncDisabled: false,
-      isSendBtnDisabled: true,
+      isSendBtnDisabled: false,
       isInNewMsg: false,
       newMsgVisible: false,
       visible: false,
@@ -337,6 +337,7 @@ export default {
       this.$router.push({ name: 'msgDetail', params: { id, tag: this.msgBoxTag, userInfo: this.userInfo } })
     },
     send () {
+      this.isSendBtnDisabled = true
       if (this.toUsers.length === 0) {
         this.$message.error('请选择收信人')
       } else if (!this.title) {
@@ -344,7 +345,6 @@ export default {
       } else if (!this.content) {
         this.$message.error('正文不能为空')
       } else {
-        // this.isSendBtnDisabled = false
         this.$http.post('/api/msg/send', {
           title: this.title,
           content: this.content,
@@ -360,11 +360,14 @@ export default {
               this.$message.success('发送成功')
               this.newMsgVisible = true
               this.isInNewMsg = true
+              this.isSendBtnDisabled = false
               this.clear()
             } else {
+              this.isSendBtnDisabled = false
               this.$message.error('发送失败')
             }
           }).catch(err => {
+            this.isSendBtnDisabled = false
             alert(JSON.stringify(err))
           })
       }
@@ -397,7 +400,7 @@ export default {
             }
           },
           onFail: function (err) {
-            alert(JSON.stringify(err))
+            // alert(JSON.stringify(err))
           }
         })
       })
