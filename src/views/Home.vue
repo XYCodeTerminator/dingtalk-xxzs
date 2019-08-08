@@ -285,7 +285,13 @@ export default {
           tag: this.msgBoxTag
         }
       }).then(res => {
-        alert(JSON.stringify(res))
+        // alert(JSON.stringify(res))
+        if (res.data.msg == 'ok') {
+          this.$message.success('删除成功')
+          this.reloadMsgList()
+        } else {
+          this.$message.error('删除失败')
+        }
       }).catch(err => {
         alert(JSON.stringify(err))
       })
