@@ -358,8 +358,8 @@ export default {
           // alert(JSON.stringify(res))
             if (res.data.msg == 'ok') {
               this.$message.success('发送成功')
-              this.newMsgVisible = true
-              this.isInNewMsg = true
+              this.newMsgVisible = false
+              this.isInNewMsg = false
               this.isSendBtnDisabled = false
               this.clear()
             } else {

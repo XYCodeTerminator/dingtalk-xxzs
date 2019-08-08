@@ -140,8 +140,7 @@ export default {
         }).then(res => {
           if (res.data.msg == 'ok') {
             this.$message.success('回复成功')
-            this.newMsgVisible = true
-            this.isInNewMsg = true
+            this.newMsgVisible = false
             this.isSendBtnDisabled = false
           } else {
             this.isSendBtnDisabled = false
