@@ -32,7 +32,7 @@
       </a-list> -->
       <div class="list-header">附&nbsp;&nbsp;&nbsp;件：</div>
       <div class="list">
-        <div class="list-item" v-for="(file, index) in msgDetail.fileList" :key="index">
+        <div class="list-item" v-for="(file, index) in msgDetail.Attachments" :key="index">
           <a-icon type="paper-clip" style="color: #1FAFFF;font-size: 22px;" />
           <div class="item-content">
             <a class="content-title" :href="file.file_url" :download="file.file_name">{{file.file_name}}</a>
@@ -59,7 +59,7 @@ export default {
     fetchData () {
       return new Promise((resolve, reject) => {
         let { id, tag } = this.$route.params
-        this.$http.get('/test/msg/detail', {
+        this.$http.get('/api/msg/detail', {
           params: { id, tag }
         }).then(res => {
           if (res.data.success) {
