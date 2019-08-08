@@ -345,6 +345,7 @@ export default {
       this.fileList = []
     },
     goMsgDetail (id) {
+      alert('goDetail')
       this.$router.push({ name: 'msgDetail', params: { id, tag: this.msgBoxTag, userInfo: this.userInfo } })
     },
     send () {
