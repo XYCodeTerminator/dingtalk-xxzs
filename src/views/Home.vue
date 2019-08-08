@@ -223,7 +223,7 @@ export default {
       this.spinning = true
       this.spinningTip = ''
       this.initMsgList().then(data => {
-        this.msgList = data
+        this.msgList = data.lists
         this.spinning = false
       }).catch(err => {
         this.spinning = false
@@ -309,7 +309,7 @@ export default {
     onLoadMore () {
       this.loadingMore = true
       this.fetchMsg().then(data => {
-        this.msgList = this.msgList.concat(data)
+        this.msgList = this.msgList.concat(data.lists)
         this.loadingMore = false
       }).catch(err => {
         this.loadingMore = false
@@ -364,7 +364,7 @@ export default {
           from_id: this.userInfo.userid
         })
           .then(res => {
-          alert(JSON.stringify(res))
+          // alert(JSON.stringify(res))
             if (res.data.msg == 'ok') {
               this.$message.success('发送成功')
               this.newMsgVisible = true
@@ -425,8 +425,8 @@ export default {
       this.userInfo = data
       this.spinningTip = ''
       this.initMsgList().then(data => {
-        alert(JSON.stringify(data))
-        this.msgList = data
+        // alert(JSON.stringify(data))
+        this.msgList = data.lists
         this.spinning = false
       }).catch(err => {
         this.spinning = false
