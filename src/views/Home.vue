@@ -279,7 +279,12 @@ export default {
       })
     },
     deleteMsg(id) {
-      this.$http.get('/api/msg/delete?id=' + id).then(res => {
+      this.$http.get('/api/msg/delete', {
+        params: {
+          id,
+          tag: this.msgBoxTag
+        }
+      }).then(res => {
         alert(JSON.stringify(res))
       }).catch(err => {
         alert(JSON.stringify(err))
