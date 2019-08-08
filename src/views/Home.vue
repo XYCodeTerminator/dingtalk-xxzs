@@ -58,15 +58,10 @@
             <div class="label">{{item.label}}</div>
           </div>
           <div class="list-title" style="margin-top: 20px;">设置</div>
-          <a class="list-item" @click="syncDept" :disabled="syncDeptDisabled">
+          <a class="list-item" @click="syncData" :disabled="syncDisabled">
             <a-icon type="cloud-download" style="color: #1FAFFF;font-size: 18px;" />
-            <div class="label">部门同步</div>
-            <a-icon type="loading" v-if="syncDeptDisabled" style="color: #1FAFFF;font-size: 18px;" />
-          </a>
-          <a class="list-item" @click="syncUser" :disabled="syncUserDisabled">
-            <a-icon type="cloud-download" style="color: #1FAFFF;font-size: 18px;" />
-            <div class="label">用户同步</div>
-            <a-icon type="loading" v-if="syncUserDisabled" style="color: #1FAFFF;font-size: 18px;" />
+            <div class="label">用户部门数据同步</div>
+            <a-icon type="loading" v-if="syncDisabled" style="color: #1FAFFF;font-size: 18px;" />
           </a>
         </div>
       </div>
@@ -136,8 +131,7 @@ export default {
   name: 'home',
   data () {
     return {
-      syncUserDisabled: false,
-      syncDeptDisabled: false,
+      syncDisabled: false,
       isSendBtnDisabled: true,
       isInNewMsg: false,
       newMsgVisible: false,
@@ -167,10 +161,10 @@ export default {
     }
   },
   methods: {
-    syncDept() {
-      this.syncDeptDisabled = true
+    syncData() {
+      this.syncDisabled = true
       this.$success({
-        title: '部门同步成功',
+        title: '用户部门同步成功',
         content: (  // JSX support
           <div>
             <p>some messages...some messages...</p>
@@ -178,22 +172,7 @@ export default {
           </div>
         ),
         onOk: () => {
-          this.syncDeptDisabled = false
-        }
-      });
-    },
-    syncUser() {
-      this.syncUserDisabled = true
-      this.$success({
-        title: '部门同步成功',
-        content: (  // JSX support
-          <div>
-            <p>some messages...some messages...</p>
-            <p>some messages...some messages...</p>
-          </div>
-        ),
-        onOk: () => {
-          this.syncUserDisabled = false
+          this.syncDisabled = false
         }
       });
     },

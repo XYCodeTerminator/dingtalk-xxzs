@@ -24,7 +24,7 @@
         :dataSource="msgDetail.fileList"
       >
         <a-list-item slot="renderItem" slot-scope="file">
-          <a-list-item-meta :description="bytesToSize(file.size)">
+          <a-list-item-meta :description="bytesToSize(file.file_size)">
             <a slot="title" :href="file.url" :download="file.file_name">{{file.file_name}}</a>
             <a-icon slot="avatar" type="paper-clip" style="color: #1FAFFF;font-size: 22px;" />
           </a-list-item-meta>
@@ -39,6 +39,13 @@
             <div class="content-desc">{{bytesToSize(+file.file_size)}}</div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <div class="reply">
+        <a-icon type="message" style="color: #1FAFFF;font-size: 18px;" />
+        <div class="reply-label">回复</div>
       </div>
     </div>
 
@@ -74,7 +81,7 @@ export default {
   mounted () {
     this.fetchData().then(data => {
       this.msgDetail = data
-      // alert(JSON.stringify(data))
+      alert(JSON.stringify(data))
     }).catch(err => {
       alert(JSON.stringify(err))
     })
@@ -85,6 +92,28 @@ export default {
 <style lang="less" scoped>
   .detail {
     padding: 10px;
+  }
+  .bottom {
+    height: 40px;
+    bottom: 0; left: 0; width: 100%;
+    position: absolute;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    .reply {
+      height: 100%;
+      display: flex;
+      width: 100%;
+      flex-flow: row nowrap;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.1);
+      .reply-label {
+        font-size: 15px;
+        color: #1FAFFF;
+        margin-left: 10px;
+      }
+    }
   }
   .title {
     padding: 20px;
