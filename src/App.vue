@@ -1,13 +1,14 @@
 <template>
   <div id="app">
-    <keep-alive>
+    <keep-alive include="home">
        <router-view />
     </keep-alive>
   </div>
 </template>
 <script>
 export default {
-  components: {
+  mounted() {
+    console.log(this.$route)
   }
 }
 </script>
