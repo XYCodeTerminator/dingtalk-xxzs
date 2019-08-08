@@ -288,8 +288,8 @@ export default {
             size: 5
           }
         }).then(res => {
-          alert(JSON.stringify(res))
-          if (res.data.success) {
+          // alert(JSON.stringify(res))
+          if (res.data.msg == 'ok') {
             resolve(res.data.data)
           } else {
             reject(res.data)
