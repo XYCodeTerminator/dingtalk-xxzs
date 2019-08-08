@@ -156,7 +156,7 @@ export default {
       loading: true,
       loadingMore: false,
       showLoadingMore: true,
-      msgList: [],
+      msgList: [{title: 'aaa'}],
       toUserName: '',
       toUserId: [],
       toUsers: [],
@@ -346,7 +346,7 @@ export default {
     },
     goMsgDetail (id) {
       alert('goDetail')
-      this.$router.push({ name: 'msgDetail', params: { id, tag: this.msgBoxTag, userInfo: this.userInfo } })
+      this.$router.push({ name: 'msgDetail', params: { id: id, tag: this.msgBoxTag, userInfo: this.userInfo } })
     },
     send () {
       if (this.toUsers.length === 0) {

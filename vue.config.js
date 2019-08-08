@@ -20,7 +20,7 @@ module.exports = {
         }
       },
       '/api': {
-        target: 'http://ytsw.info:4449',
+        target: 'http://129.211.114.37:4449',
         ws: false,
         changeOrigin: true,
         pathRewrite: {
