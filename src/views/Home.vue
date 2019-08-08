@@ -354,7 +354,7 @@ export default {
       } else if (!this.content) {
         this.$message.error('正文不能为空')
       } else {
-        this.isSendBtnDisabled = false
+        // this.isSendBtnDisabled = false
         this.$http.post('/api/msg/send', {
           title: this.title,
           content: this.content,
