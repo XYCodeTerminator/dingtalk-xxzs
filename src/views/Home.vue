@@ -25,10 +25,10 @@
           <a-spin v-if="loadingMore" />
           <a-button v-else @click="onLoadMore" size="small">加载更多</a-button>
         </div>
-        <a-list-item slot="renderItem" slot-scope="msg" @click="goMsgDetail(msg.id)">
-          <a slot="actions" @click.stop="deleteMsg(msg.id)" style="color: red;">删除</a>
+        <a-list-item slot="renderItem" slot-scope="msg" @click="goMsgDetail(msg.ID)">
+          <a slot="actions" @click.stop="deleteMsg(msg.ID)" style="color: red;">删除</a>
           <a-list-item-meta
-            :description="msg.title.substring(0, 18)"
+            :description="msg.title"
           >
             <div slot="title">{{msgBoxTag === 2 || msgBoxTag === 3 ? msg.to_name : msg.from_name}}</div>
             <!-- <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /> -->
@@ -156,7 +156,7 @@ export default {
       loading: true,
       loadingMore: false,
       showLoadingMore: true,
-      msgList: [{title: 'aaa'}],
+      msgList: [],
       toUserName: '',
       toUserId: [],
       toUsers: [],
@@ -346,7 +346,7 @@ export default {
     },
     goMsgDetail (id) {
       alert('goDetail')
-      this.$router.push({ name: 'msgDetail', params: { id: id, tag: this.msgBoxTag, userInfo: this.userInfo } })
+      this.$router.push({ name: 'msgDetail', params: { id, tag: this.msgBoxTag, userInfo: this.userInfo } })
     },
     send () {
       if (this.toUsers.length === 0) {
