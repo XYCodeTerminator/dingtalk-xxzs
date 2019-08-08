@@ -271,7 +271,7 @@ export default {
     reloadMsgList () {
       this.spinning = true
       this.initMsgList().then(data => {
-        this.msgList = data
+        this.msgList = data.lists
         this.spinning = false
       }).catch(err => {
         this.spinning = false
@@ -309,6 +309,7 @@ export default {
     onLoadMore () {
       this.loadingMore = true
       this.fetchMsg().then(data => {
+        alert(JSON.stringify(data))
         this.msgList = this.msgList.concat(data.lists)
         this.loadingMore = false
       }).catch(err => {
