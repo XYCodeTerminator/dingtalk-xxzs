@@ -45,9 +45,54 @@
     <div class="bottom">
       <div class="reply">
         <a-icon type="message" style="color: #1FAFFF;font-size: 18px;" />
-        <div class="reply-label">回复</div>
+        <div class="reply-label" @click="showReply">回复</div>
       </div>
     </div>
+
+    <a-drawer
+      ref="newMsg"
+      height="100%"
+      placement="bottom"
+      :closable="false"
+      @close="cancelReply"
+      :visible="newMsgVisible"
+    >
+      <div class="new-msg">
+        <div class="new-msg-nav">
+          <a @click="cancelReply">取消</a>
+          <div class="nav-title">发消息</div>
+          <a @click="reply">回复</a>
+        </div>
+        <div class="to">
+          <div class="to-name">收信人：</div>
+          <input type="text" v-model="toUserName" :disabled="true" >
+        </div>
+        <div class="title">
+          <div class="title-label">主&nbsp;&nbsp;&nbsp;题：</div>
+          <input type="text" v-model="title">
+        </div>
+        <div class="new-msg-content">
+          <textarea placeholder="请输入正文..." v-model="content" />
+        </div>
+        <!-- <div class="new-msg-buttons">
+          <div class="upload-btn">
+            <a-icon @click="uploadFile" type="paper-clip" style="color: #1FAFFF;font-size: 22px;" />
+          </div>
+        </div> -->
+        <div class="upload-files">
+          <a-upload
+            :multiple="true"
+            action="/api/file/upload"
+            @change="handleChange"
+            :fileList="fileList"
+            :defaultFileList="fileList">
+            <div>
+              <a-icon type="paper-clip" style="color: #1FAFFF;font-size: 22px;" />
+            </div>
+          </a-upload>
+        </div>
+      </div>
+    </a-drawer>
 
   </div>
 </template>
@@ -58,11 +103,65 @@ export default {
   name: 'msgDetail',
   data () {
     return {
-      msgDetail: {}
+      userInfo: {},
+      msgDetail: {},
+      newMsgVisible: false,
+      toUserName: '',
+      toUserId: [],
+      title: '',
+      content: '',
+      fileList: [],
     }
   },
   methods: {
     bytesToSize,
+    showReply() {
+      this.newMsgVisible = true
+    },
+    cancelReply() {
+      this.newMsgVisible = false
+    },
+    reply() {
+      if (!this.title) {
+        this.$message.error('主题不能为空')
+      } else if (!this.content) {
+        this.$message.error('正文不能为空')
+      } else {
+        this.$http.post('/api/msg/send', {
+          title: this.title,
+          content: this.content,
+          fileList: this.fileList,
+          to_name: this.toUserName,
+          to_id: this.toUserId,
+          from_name: this.userInfo.name,
+          from_id: this.userInfo.userid
+        }).then(res => {
+          if (res.data.msg == 'ok') {
+            this.$message.success('回复成功')
+            this.newMsgVisible = true
+            this.isInNewMsg = true
+            this.newMsgVisible = false
+          } else {
+            this.$message.error('回复失败')
+          }
+        }).catch(err => {
+          alert(JSON.stringify(err))
+        })
+      }
+    },
+    handleChange (info) {
+      // alert(JSON.stringify(info))
+      // let file = info.file
+      let fileList = [...info.fileList]
+      // console.log(fileList)
+      fileList = fileList.map(file => {
+        if (file.response) {
+          file.url = file.response.data.url
+        }
+        return file
+      })
+      this.fileList = fileList
+    },
     fetchData () {
       return new Promise((resolve, reject) => {
         let { id, tag } = this.$route.params
@@ -79,9 +178,12 @@ export default {
     }
   },
   mounted () {
+    this.userInfo = this.$route.params.userInfo
     this.fetchData().then(data => {
       this.msgDetail = data
-      alert(JSON.stringify(data))
+      this.title = `回复：${data.title}`
+      this.toUserName = data.from_name
+      this.toUserId = data.from_id
     }).catch(err => {
       alert(JSON.stringify(err))
     })
@@ -165,6 +267,95 @@ export default {
           font-size: 13px;
           color: rgba(0, 0, 0, 0.45);
         }
+      }
+    }
+  }
+
+  .new-msg {
+    overflow: hidden;
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    padding: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    .new-msg-nav {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: center;
+      // border-bottom: solid 1px #eee;
+      padding: 10px 0;
+      a {
+        font-size: 15px;
+      }
+      .nav-title {
+        font-size: 16px;
+        font-weight: 400;
+      }
+    }
+    .to {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      padding: 10px 5px;
+      border-bottom: 1px solid #eee;
+      input {
+        flex: 1 1 auto;
+        border: none;
+        outline: none;
+      }
+    }
+    .title {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      padding: 10px 5px;
+      border-bottom: 1px solid #eee;
+      input {
+        flex: 1 1 auto;
+        border: none;
+        outline: none;
+      }
+    }
+    .new-msg-content {
+      flex: 1 1 auto;
+      border-bottom: 1px solid #eee;
+      padding: 10px 5px;
+      textarea {
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        resize: none;
+        padding: 20px;
+      }
+    }
+    .new-msg-buttons {
+      border-bottom: 1px solid #eee;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      padding: 5px 10px;
+    }
+    .upload-files {
+      flex: 1 1 auto;
+      padding: 10px;
+      max-height: 150px;
+      position: relative;
+      /deep/ .ant-upload-btn {
+        height: 25px;
+      }
+      /deep/ .ant-upload-list {
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        height: calc(100% - 25px);
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+      /deep/ .ant-upload-list-item .anticon-close {
+        font-size: 12px;
+        opacity: 1;
       }
     }
   }

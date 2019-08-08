@@ -177,7 +177,6 @@ export default {
       });
     },
     handleChange (info) {
-      alert(JSON.stringify(info))
       // let file = info.file
       let fileList = [...info.fileList]
       // console.log(fileList)
