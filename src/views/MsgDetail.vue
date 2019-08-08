@@ -62,7 +62,7 @@ export default {
         this.$http.get('/api/msg/detail', {
           params: { id, tag }
         }).then(res => {
-          if (res.data.success) {
+          if (res.data.msg === 'ok') {
             resolve(res.data.data)
           } else {
             reject(res.data)
