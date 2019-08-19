@@ -1,13 +1,8 @@
 <template>
   <div class="home">
-    <!-- <div class="header">
-      <div class="title">
-        收件箱
-      </div>
-    </div> -->
     <div class="bottom">
       <a-icon @click="showDrawer" type="menu-unfold" style="color: #1FAFFF;font-size: 25px;" />
-      <a-icon @click="newMsg" type="form" style="color: #1FAFFF;font-size: 25px;" />
+      <a-icon v-if="!userDeptInfo.outerDept" @click="newMsg" type="form" style="color: #1FAFFF;font-size: 25px;" />
     </div>
 
     <div class="content" v-if="!isInNewMsg">
@@ -57,12 +52,12 @@
             <a-icon :type="item.icon" style="color: #1FAFFF;font-size: 18px;" />
             <div class="label">{{item.label}}</div>
           </div>
-          <div class="list-title" style="margin-top: 20px;">设置</div>
+          <!-- <div class="list-title" style="margin-top: 20px;">设置</div>
           <a class="list-item" @click="syncData" :disabled="syncDisabled">
             <a-icon type="cloud-download" style="color: #1FAFFF;font-size: 18px;" />
             <div class="label">用户部门数据同步</div>
             <a-icon type="loading" v-if="syncDisabled" style="color: #1FAFFF;font-size: 18px;" />
-          </a>
+          </a> -->
         </div>
       </div>
     </a-drawer>
@@ -93,11 +88,6 @@
         <div class="new-msg-content">
           <textarea placeholder="请输入正文..." v-model="content" />
         </div>
-        <!-- <div class="new-msg-buttons">
-          <div class="upload-btn">
-            <a-icon @click="uploadFile" type="paper-clip" style="color: #1FAFFF;font-size: 22px;" />
-          </div>
-        </div> -->
         <div class="upload-files">
           <a-upload
             :multiple="true"
@@ -112,16 +102,6 @@
         </div>
       </div>
     </a-drawer>
-
-    <!-- <a-modal
-      :title="syncTitle"
-      v-model="syncModalVisible"
-      @ok="syncOk"
-    >
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-    </a-modal> -->
   </div>
 </template>
 
@@ -139,6 +119,7 @@ export default {
       spinning: false,
       spinningTip: '',
       userInfo: null,
+      userDeptInfo: null,
       msgBoxLabel: '收件箱',
       msgBoxTag: 1,
       listItems: [
@@ -161,21 +142,21 @@ export default {
     }
   },
   methods: {
-    syncData() {
-      this.syncDisabled = true
-      this.$success({
-        title: '用户部门同步成功',
-        content: (  // JSX support
-          <div>
-            <p>some messages...some messages...</p>
-            <p>some messages...some messages...</p>
-          </div>
-        ),
-        onOk: () => {
-          this.syncDisabled = false
-        }
-      });
-    },
+    // syncData() {
+    //   this.syncDisabled = true
+    //   this.$success({
+    //     title: '用户部门同步成功',
+    //     content: (  
+    //       <div>
+    //         <p>some messages...some messages...</p>
+    //         <p>some messages...some messages...</p>
+    //       </div>
+    //     ),
+    //     onOk: () => {
+    //       this.syncDisabled = false
+    //     }
+    //   });
+    // },
     handleChange (info) {
       // let file = info.file
       let fileList = [...info.fileList]
@@ -229,6 +210,18 @@ export default {
             }
           })
         })
+      })
+    },
+    getUserDeptInfo() {
+      return new Promise((resolve, reject) => {
+        this.$http.get('/api/department/detail?id=' + this.userInfo.department[0])
+        .then(res => {
+          if (res.data.msg == 'ok') {
+            resolve(res.data.data)
+          } else {
+            reject(res.data)
+          }
+        }).catch(err => reject(err))
       })
     },
     initMsgList () {
@@ -418,6 +411,9 @@ export default {
       // alert(JSON.stringify(data))
       this.userInfo = data
       this.spinningTip = ''
+      this.getUserDeptInfo().then(data => {
+        this.userDeptInfo = data
+      }).catch(err => alert(JSON.stringify(err)))
       this.initMsgList().then(data => {
         // alert(JSON.stringify(data))
         this.msgList = data.lists
