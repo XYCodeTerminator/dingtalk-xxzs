@@ -4,11 +4,11 @@
     <div class="info">
       <div class="info-item">
         <div class="item-label">发件人：</div>
-        <div class="item-content">{{msgDetail.from_name}}</div>
+        <div class="item-content">{{getAuthName(msgDetail.from_name)}}</div>
       </div>
       <div class="info-item">
         <div class="item-label">收件人：</div>
-        <div class="item-content">{{$route.params.tag === 1? $route.params.userInfo.name : msgDetail.to_name}}</div>
+        <div class="item-content">{{$route.params.tag === 1? getAuthName($route.params.userInfo.name) : getAuthName(msgDetail.to_name)}}</div>
       </div>
       <div class="info-item">
         <div class="item-label">时&nbsp;&nbsp;&nbsp;间：</div>
@@ -105,6 +105,7 @@ export default {
     return {
       isSendBtnDisabled: false,
       userInfo: {},
+      userDeptInfo: {},
       msgDetail: {},
       newMsgVisible: false,
       toUserName: '',
@@ -115,6 +116,13 @@ export default {
     }
   },
   methods: {
+    getAuthName(name) {
+      if (this.userDeptInfo && this.userDeptInfo.outerDept) {
+        return this.userDeptInfo.name
+      } else {
+        return name
+      }
+    },
     bytesToSize,
     showReply() {
       this.newMsgVisible = true
@@ -182,6 +190,7 @@ export default {
   },
   mounted () {
     this.userInfo = this.$route.params.userInfo
+    this.userDeptInfo = this.$route.params.userDeptInfo
     this.fetchData().then(data => {
       this.msgDetail = data
       this.title = `回复：${data.title}`

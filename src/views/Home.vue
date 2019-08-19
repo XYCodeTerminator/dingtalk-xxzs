@@ -335,7 +335,7 @@ export default {
       this.fileList = []
     },
     goMsgDetail (id) {
-      this.$router.push({ name: 'msgDetail', params: { id, tag: this.msgBoxTag, userInfo: this.userInfo } })
+      this.$router.push({ name: 'msgDetail', params: { id, tag: this.msgBoxTag, userInfo: this.userInfo, userDeptInfo: this.userDeptInfo } })
     },
     send () {
       this.isSendBtnDisabled = true
