@@ -65,7 +65,7 @@
         </div>
         <div class="to">
           <div class="to-name">收信人：</div>
-          <input type="text" v-model="toUserName" :disabled="true" >
+          <input type="text" v-model="authName" :disabled="true" >
         </div>
         <div class="title">
           <div class="title-label">主&nbsp;&nbsp;&nbsp;题：</div>
@@ -113,6 +113,7 @@ export default {
       title: '',
       content: '',
       fileList: [],
+      authName: ''
     }
   },
   methods: {
@@ -195,6 +196,7 @@ export default {
       this.msgDetail = data
       this.title = `回复：${data.title}`
       this.toUserName = data.from_name
+      this.authName = getAuthName(data.from_name)
       this.toUserId = data.from_id
     }).catch(err => {
       alert(JSON.stringify(err))
