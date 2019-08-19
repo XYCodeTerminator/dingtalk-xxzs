@@ -25,7 +25,7 @@
           <a-list-item-meta
             :description="msg.title"
           >
-            <div slot="title">{{msgBoxTag === 2 || msgBoxTag === 3 ? msg.to_name : msg.from_name}}</div>
+            <div slot="title">{{msgBoxTag === 2 || msgBoxTag === 3 ? getAuthName(msg.to_name) : getAuthName(msg.from_name)}}</div>
             <!-- <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /> -->
           </a-list-item-meta>
         </a-list-item>
@@ -141,6 +141,7 @@ export default {
       defaultFileList: []
     }
   },
+    
   methods: {
     // syncData() {
     //   this.syncDisabled = true
@@ -157,6 +158,13 @@ export default {
     //     }
     //   });
     // },
+    getAuthName(name) {
+      if (this.userDeptInfo && this.userDeptInfo.outerDept) {
+        return this.userDeptInfo.name
+      } else {
+        return name
+      }
+    },
     handleChange (info) {
       // let file = info.file
       let fileList = [...info.fileList]
