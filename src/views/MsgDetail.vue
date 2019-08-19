@@ -8,7 +8,7 @@
       </div>
       <div class="info-item">
         <div class="item-label">收件人：</div>
-        <div class="item-content">{{$route.params.tag === 1? getAuthName($route.params.userInfo.name) : getAuthName(msgDetail.to_name)}}</div>
+        <div class="item-content">{{$route.params.tag === 1? $route.params.userInfo.name : getAuthName(msgDetail.to_name)}}</div>
       </div>
       <div class="info-item">
         <div class="item-label">时&nbsp;&nbsp;&nbsp;间：</div>
