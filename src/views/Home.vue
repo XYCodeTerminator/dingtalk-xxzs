@@ -28,6 +28,7 @@
             <div slot="title">{{msgBoxTag === 2 || msgBoxTag === 3 ? getAuthName(msg.to_name) : getAuthName(msg.from_name)}}</div>
             <!-- <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /> -->
           </a-list-item-meta>
+          <div>{{msg.time}}</div>
         </a-list-item>
       </a-list>
     </div>
