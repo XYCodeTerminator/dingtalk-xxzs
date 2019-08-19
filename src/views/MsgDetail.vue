@@ -4,7 +4,7 @@
     <div class="info">
       <div class="info-item">
         <div class="item-label">发件人：</div>
-        <div class="item-content">{{getAuthName(msgDetail.from_name)}}</div>
+        <div class="item-content">{{$route.params.tag === 1? getAuthName(msgDetail.from_name) : msgDetail.from_name}}</div>
       </div>
       <div class="info-item">
         <div class="item-label">收件人：</div>
