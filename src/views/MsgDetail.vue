@@ -17,19 +17,6 @@
     </div>
     <div class="content">{{msgDetail.content}}</div>
     <div class="file-list">
-      <!-- <a-list
-        header="附件"
-        size="small"
-        itemLayout="horizontal"
-        :dataSource="msgDetail.fileList"
-      >
-        <a-list-item slot="renderItem" slot-scope="file">
-          <a-list-item-meta :description="bytesToSize(file.file_size)">
-            <a slot="title" :href="file.url" :download="file.file_name">{{file.file_name}}</a>
-            <a-icon slot="avatar" type="paper-clip" style="color: #1FAFFF;font-size: 22px;" />
-          </a-list-item-meta>
-        </a-list-item>
-      </a-list> -->
       <div class="list-header">附&nbsp;&nbsp;&nbsp;件：</div>
       <div class="list">
         <div class="list-item" v-for="(file, index) in msgDetail.Attachments" :key="index">
@@ -154,6 +141,7 @@ export default {
           } else {
             this.isSendBtnDisabled = false
             this.$message.error('回复失败')
+            alert(JSON.stringify(res.data))
           }
         }).catch(err => {
           this.isSendBtnDisabled = false
@@ -196,7 +184,7 @@ export default {
       this.msgDetail = data
       this.title = `回复：${data.title}`
       this.toUserName = data.from_name
-      this.authName = getAuthName(data.from_name)
+      this.authName = this.getAuthName(data.from_name)
       this.toUserId = data.from_id
     }).catch(err => {
       alert(JSON.stringify(err))
