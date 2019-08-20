@@ -134,7 +134,6 @@ export default {
           from_name: this.userInfo.name,
           from_id: this.userInfo.userid
         }).then(res => {
-          alert(JSON.stringify(res))
           if (res.data.msg == 'ok') {
             this.$message.success('回复成功')
             this.newMsgVisible = false
@@ -142,7 +141,6 @@ export default {
           } else {
             this.isSendBtnDisabled = false
             this.$message.error('回复失败')
-            alert(JSON.stringify(res.data))
           }
         }).catch(err => {
           this.isSendBtnDisabled = false
