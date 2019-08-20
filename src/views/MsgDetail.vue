@@ -134,7 +134,7 @@ export default {
           from_name: this.userInfo.name,
           from_id: this.userInfo.userid
         }).then(res => {
-          alert(res)
+          alert(JSON.stringify(res))
           if (res.data.msg == 'ok') {
             this.$message.success('回复成功')
             this.newMsgVisible = false
