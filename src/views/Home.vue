@@ -1,10 +1,12 @@
 <template>
   <div class="home">
+    <!-- 底部工具栏  -->
     <div class="bottom">
       <a-icon @click="showDrawer" type="menu-unfold" style="color: #1FAFFF;font-size: 25px;" />
       <a-icon v-if="!userDeptInfo.outerDept" @click="newMsg" type="form" style="color: #1FAFFF;font-size: 25px;" />
     </div>
 
+    <!-- 消息列表 tag: 0, 1, 2 分别对应：已删除，收件箱，发件箱 -->
     <div class="content" v-if="!isInNewMsg">
       <div class="content-header">
         <div class="content-header-title">{{msgBoxLabel}}</div>
@@ -36,6 +38,8 @@
     <div class="spin">
       <a-spin class="spin" :spinning="spinning" :tip="spinningTip" size="large" />
     </div>
+    
+    <!-- 左侧抽屉栏，通过底部工具栏按钮控制显示和隐藏 -->
     <a-drawer
       placement="left"
       :closable="false"
@@ -63,6 +67,7 @@
       </div>
     </a-drawer>
 
+    <!-- 写消息，通过底部写消息图标（只有税务人员可见）控制显示和隐藏 -->
     <a-drawer
       ref="newMsg"
       height="100%"
@@ -92,7 +97,7 @@
         <div class="upload-files">
           <a-upload
             :multiple="true"
-            action="/api/file/upload"
+            action="/api/v2/file/upload"
             @change="handleChange"
             :fileList="fileList"
             :defaultFileList="defaultFileList">
@@ -112,9 +117,9 @@ export default {
   name: 'home',
   data () {
     return {
-      syncDisabled: false,
-      isSendBtnDisabled: false,
-      isInNewMsg: false,
+      // syncDisabled: false,
+      isSendBtnDisabled: false, // 消息发送按钮是否可用
+      isInNewMsg: false, 
       newMsgVisible: false,
       visible: false,
       spinning: false,
@@ -127,7 +132,7 @@ export default {
         { label: '收件箱', tag: 1, icon: 'inbox' },
         { label: '已发送', tag: 2, icon: 'check' },
         { label: '已删除', tag: 0, icon: 'delete' },
-        { label: '草稿箱', tag: 3, icon: 'file' }
+        // { label: '草稿箱', tag: 3, icon: 'file' }
       ],
       loading: true,
       loadingMore: false,
@@ -205,7 +210,7 @@ export default {
           this.$dd.runtime.permission.requestAuthCode({
             corpId,
             onSuccess: res => {
-              this.$http.post('/api/login', {
+              this.$http.post('/api/v2/login', { // 访问 DMZ 服务器
                 // authCode: res.code
                 auth_code: res.code
               }).then(res => {
@@ -223,7 +228,8 @@ export default {
     },
     getUserDeptInfo() {
       return new Promise((resolve, reject) => {
-        this.$http.get('/api/department/detail?id=' + this.userInfo.department[0])
+        // 访问应用服务器
+        this.$http.get('/api/v2/department/detail?id=' + this.userInfo.department[0])
         .then(res => {
           if (res.data.msg == 'ok') {
             resolve(res.data.data)
@@ -236,7 +242,7 @@ export default {
     initMsgList () {
       let start = 0
       return new Promise((resolve, reject) => {
-        this.$http.get('/api/msg/list', {
+        this.$http.get('/api/v2/msg/list', {
           params: {
             tag: this.msgBoxTag,
             start,
@@ -262,7 +268,7 @@ export default {
     fetchMsg () {
       return new Promise((resolve, reject) => {
         let start = this.msgList.length || 0
-        this.$http.get('/api/msg/list', {
+        this.$http.get('/api/v2/msg/list', {
           params: {
             tag: this.msgBoxTag,
             start,
@@ -281,7 +287,7 @@ export default {
       })
     },
     deleteMsg(id) {
-      this.$http.get('/api/msg/delete', {
+      this.$http.get('/api/v2/msg/delete', {
         params: {
           id,
           tag: this.msgBoxTag
@@ -347,7 +353,7 @@ export default {
       } else if (!this.content) {
         this.$message.error('正文不能为空')
       } else {
-        this.$http.post('/api/msg/send', {
+        this.$http.post('/api/v2/msg/send', {
           title: this.title,
           content: this.content,
           fileList: this.fileList,
@@ -435,8 +441,8 @@ export default {
       this.spinning = false
       alert(JSON.stringify(err))
     })
-    // this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
-    this.$http.get('/api/js_api_config?url=' + window.location.href)
+    // this.$http.get('/dingtalk/js_api/v2_config?url=' + window.location.href)
+    this.$http.get('/api/v2/js_api/v2_config?url=' + window.location.href)
       .then(res => {
         // alert(JSON.stringify(res.data.data))
         // let config = res.data

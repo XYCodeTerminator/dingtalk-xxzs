@@ -1,3 +1,4 @@
+// 文件大小转换工具
 export function bytesToSize (bytes) {
   if (bytes === 0) return '0 B'
   let k = 1024

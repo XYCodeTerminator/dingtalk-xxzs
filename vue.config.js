@@ -7,26 +7,19 @@ module.exports = {
       }
     }
   },
-  devServer: {
-    disableHostCheck: true,
-    port: 8080,
-    proxy: {
-      '/test': {
-        target: 'http://reuqg3.natappfree.cc',
-        ws: false,
-        changeOrigin: true,
-        pathRewrite: {
-          '^/test': '/'
-        }
-      },
-      '/api': {
-        target: 'http://129.211.114.37:4449',
-        ws: false,
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api': '/api/v1'
-        }
-      }
-    }
-  }
+  // devServer: {
+  //   disableHostCheck: true,
+  //   port: 8080,
+  //   proxy: {
+  //     '/api': {
+  //       // target: 'http://129.211.114.37:4449',
+  //       target: 'http://10.88.120.154:4449',
+  //       ws: false,
+  //       changeOrigin: true,
+  //       pathRewrite: {
+  //         '^/api': '/api/v1'
+  //       }
+  //     }
+  //   }
+  // }
 }
