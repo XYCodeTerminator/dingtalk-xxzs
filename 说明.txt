@@ -1,0 +1,9 @@
+/dmz 开头都是访问代理服务器(目前只有下面这两个)
+eg: 
+  /dmz/api/v2/login =>   http://10.88.101.82:4449/api/v2/login
+
+  /dmz/api/v2/js_api_config => http://10.88.101.82:4449/api/v2/js_api_config
+
+/app 开头都是访问应用服务器
+eg: 
+  /app/api/v2/msg/send => http://10.88.120.154:4449/api/v2/msg/send

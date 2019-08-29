@@ -125,7 +125,7 @@ export default {
       } else if (!this.content) {
         this.$message.error('正文不能为空')
       } else {
-        this.$http.post('/api/v2/msg/send', {
+        this.$http.post('/outer/api/v2/msg/send', {
           title: this.title,
           content: this.content,
           fileList: this.fileList,
@@ -164,7 +164,7 @@ export default {
     fetchData () {
       return new Promise((resolve, reject) => {
         let { id, tag } = this.$route.params
-        this.$http.get('/api/v2/msg/detail', {
+        this.$http.get('/outer/api/v2/msg/detail', {
           params: { id, tag }
         }).then(res => {
           if (res.data.msg === 'ok') {

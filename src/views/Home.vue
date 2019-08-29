@@ -3,7 +3,7 @@
     <!-- 底部工具栏  -->
     <div class="bottom">
       <a-icon @click="showDrawer" type="menu-unfold" style="color: #1FAFFF;font-size: 25px;" />
-      <a-icon v-if="!userDeptInfo.outerDept" @click="newMsg" type="form" style="color: #1FAFFF;font-size: 25px;" />
+      <a-icon v-if="!userDeptInfo.appDept" @click="newMsg" type="form" style="color: #1FAFFF;font-size: 25px;" />
     </div>
 
     <!-- 消息列表 tag: 0, 1, 2 分别对应：已删除，收件箱，发件箱 -->
@@ -97,7 +97,7 @@
         <div class="upload-files">
           <a-upload
             :multiple="true"
-            action="/api/v2/file/upload"
+            action="/app/api/v2/file/upload"
             @change="handleChange"
             :fileList="fileList"
             :defaultFileList="defaultFileList">
@@ -165,7 +165,7 @@ export default {
     //   });
     // },
     getAuthName(name) {
-      if (this.userDeptInfo && this.userDeptInfo.outerDept) {
+      if (this.userDeptInfo && this.userDeptInfo.appDept) {
         return this.userDeptInfo.name
       } else {
         return name
@@ -210,7 +210,7 @@ export default {
           this.$dd.runtime.permission.requestAuthCode({
             corpId,
             onSuccess: res => {
-              this.$http.post('/api/v2/login', { // 访问 DMZ 服务器
+              this.$http.post('/dmz/api/v2/login', {
                 // authCode: res.code
                 auth_code: res.code
               }).then(res => {
@@ -229,7 +229,7 @@ export default {
     getUserDeptInfo() {
       return new Promise((resolve, reject) => {
         // 访问应用服务器
-        this.$http.get('/api/v2/department/detail?id=' + this.userInfo.department[0])
+        this.$http.get('/app/api/v2/department/detail?id=' + this.userInfo.department[0])
         .then(res => {
           if (res.data.msg == 'ok') {
             resolve(res.data.data)
@@ -242,7 +242,7 @@ export default {
     initMsgList () {
       let start = 0
       return new Promise((resolve, reject) => {
-        this.$http.get('/api/v2/msg/list', {
+        this.$http.get('/app/api/v2/msg/list', {
           params: {
             tag: this.msgBoxTag,
             start,
@@ -268,7 +268,7 @@ export default {
     fetchMsg () {
       return new Promise((resolve, reject) => {
         let start = this.msgList.length || 0
-        this.$http.get('/api/v2/msg/list', {
+        this.$http.get('/app/api/v2/msg/list', {
           params: {
             tag: this.msgBoxTag,
             start,
@@ -287,7 +287,7 @@ export default {
       })
     },
     deleteMsg(id) {
-      this.$http.get('/api/v2/msg/delete', {
+      this.$http.get('/app/api/v2/msg/delete', {
         params: {
           id,
           tag: this.msgBoxTag
@@ -342,7 +342,7 @@ export default {
       this.fileList = []
     },
     goMsgDetail (id) {
-      this.$router.push({ name: 'msgDetail', params: { id, tag: this.msgBoxTag, userInfo: this.userInfo, userDeptInfo: this.userDeptInfo } })
+      this.$rapp.push({ name: 'msgDetail', params: { id, tag: this.msgBoxTag, userInfo: this.userInfo, userDeptInfo: this.userDeptInfo } })
     },
     send () {
       this.isSendBtnDisabled = true
@@ -353,7 +353,7 @@ export default {
       } else if (!this.content) {
         this.$message.error('正文不能为空')
       } else {
-        this.$http.post('/api/v2/msg/send', {
+        this.$http.post('/app/api/v2/msg/send', {
           title: this.title,
           content: this.content,
           fileList: this.fileList,
@@ -441,8 +441,8 @@ export default {
       this.spinning = false
       alert(JSON.stringify(err))
     })
-    // this.$http.get('/dingtalk/js_api/v2_config?url=' + window.location.href)
-    this.$http.get('/api/v2/js_api/v2_config?url=' + window.location.href)
+    // this.$http.get('/dingtalk/js_api_config?url=' + window.location.href)
+    this.$http.get('/dmz/api/v2/js_api_config?url=' + window.location.href)
       .then(res => {
         // alert(JSON.stringify(res.data.data))
         // let config = res.data
