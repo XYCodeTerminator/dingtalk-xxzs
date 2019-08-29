@@ -104,7 +104,7 @@ export default {
     }
   },
   methods: {
-    getAuthName(name) {
+    getAuthName (name) {
       if (this.userDeptInfo && this.userDeptInfo.outerDept) {
         return this.userDeptInfo.name
       } else {
@@ -112,20 +112,20 @@ export default {
       }
     },
     bytesToSize,
-    showReply() {
+    showReply () {
       this.newMsgVisible = true
     },
-    cancelReply() {
+    cancelReply () {
       this.newMsgVisible = false
     },
-    reply() {
+    reply () {
       this.isSendBtnDisabled = true
       if (!this.title) {
         this.$message.error('主题不能为空')
       } else if (!this.content) {
         this.$message.error('正文不能为空')
       } else {
-        this.$http.post('/outer/api/v2/msg/send', {
+        this.$http.post('/app/api/v2/msg/send', {
           title: this.title,
           content: this.content,
           fileList: this.fileList,
@@ -164,7 +164,7 @@ export default {
     fetchData () {
       return new Promise((resolve, reject) => {
         let { id, tag } = this.$route.params
-        this.$http.get('/outer/api/v2/msg/detail', {
+        this.$http.get('/app/api/v2/msg/detail', {
           params: { id, tag }
         }).then(res => {
           if (res.data.msg === 'ok') {

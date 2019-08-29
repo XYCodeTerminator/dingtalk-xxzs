@@ -6,7 +6,7 @@ module.exports = {
         javascriptEnabled: true
       }
     }
-  },
+  }
   // devServer: {
   //   disableHostCheck: true,
   //   port: 8080,

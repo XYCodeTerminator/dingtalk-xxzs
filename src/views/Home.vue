@@ -3,7 +3,7 @@
     <!-- 底部工具栏  -->
     <div class="bottom">
       <a-icon @click="showDrawer" type="menu-unfold" style="color: #1FAFFF;font-size: 25px;" />
-      <a-icon v-if="!userDeptInfo.appDept" @click="newMsg" type="form" style="color: #1FAFFF;font-size: 25px;" />
+      <a-icon v-if="userDeptInfo && !userDeptInfo.outerDept" @click="newMsg" type="form" style="color: #1FAFFF;font-size: 25px;" />
     </div>
 
     <!-- 消息列表 tag: 0, 1, 2 分别对应：已删除，收件箱，发件箱 -->
@@ -38,7 +38,7 @@
     <div class="spin">
       <a-spin class="spin" :spinning="spinning" :tip="spinningTip" size="large" />
     </div>
-    
+
     <!-- 左侧抽屉栏，通过底部工具栏按钮控制显示和隐藏 -->
     <a-drawer
       placement="left"
@@ -119,7 +119,7 @@ export default {
     return {
       // syncDisabled: false,
       isSendBtnDisabled: false, // 消息发送按钮是否可用
-      isInNewMsg: false, 
+      isInNewMsg: false,
       newMsgVisible: false,
       visible: false,
       spinning: false,
@@ -131,7 +131,7 @@ export default {
       listItems: [
         { label: '收件箱', tag: 1, icon: 'inbox' },
         { label: '已发送', tag: 2, icon: 'check' },
-        { label: '已删除', tag: 0, icon: 'delete' },
+        { label: '已删除', tag: 0, icon: 'delete' }
         // { label: '草稿箱', tag: 3, icon: 'file' }
       ],
       loading: true,
@@ -147,13 +147,13 @@ export default {
       defaultFileList: []
     }
   },
-    
+
   methods: {
     // syncData() {
     //   this.syncDisabled = true
     //   this.$success({
     //     title: '用户部门同步成功',
-    //     content: (  
+    //     content: (
     //       <div>
     //         <p>some messages...some messages...</p>
     //         <p>some messages...some messages...</p>
@@ -164,8 +164,8 @@ export default {
     //     }
     //   });
     // },
-    getAuthName(name) {
-      if (this.userDeptInfo && this.userDeptInfo.appDept) {
+    getAuthName (name) {
+      if (this.userDeptInfo && this.userDeptInfo.outerDept) {
         return this.userDeptInfo.name
       } else {
         return name
@@ -226,17 +226,17 @@ export default {
         })
       })
     },
-    getUserDeptInfo() {
+    getUserDeptInfo () {
       return new Promise((resolve, reject) => {
         // 访问应用服务器
         this.$http.get('/app/api/v2/department/detail?id=' + this.userInfo.department[0])
-        .then(res => {
-          if (res.data.msg == 'ok') {
-            resolve(res.data.data)
-          } else {
-            reject(res.data)
-          }
-        }).catch(err => reject(err))
+          .then(res => {
+            if (res.data.msg == 'ok') {
+              resolve(res.data.data)
+            } else {
+              reject(res.data)
+            }
+          }).catch(err => reject(err))
       })
     },
     initMsgList () {
@@ -286,7 +286,7 @@ export default {
         })
       })
     },
-    deleteMsg(id) {
+    deleteMsg (id) {
       this.$http.get('/app/api/v2/msg/delete', {
         params: {
           id,
@@ -342,7 +342,7 @@ export default {
       this.fileList = []
     },
     goMsgDetail (id) {
-      this.$rapp.push({ name: 'msgDetail', params: { id, tag: this.msgBoxTag, userInfo: this.userInfo, userDeptInfo: this.userDeptInfo } })
+      this.$router.push({ name: 'msgDetail', params: { id, tag: this.msgBoxTag, userInfo: this.userInfo, userDeptInfo: this.userDeptInfo } })
     },
     send () {
       this.isSendBtnDisabled = true
@@ -412,7 +412,7 @@ export default {
           }
         })
       })
-    },
+    }
   },
   components: {
   },

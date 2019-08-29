@@ -7,7 +7,7 @@
 </template>
 <script>
 export default {
-  mounted() {
+  mounted () {
     console.log(this.$route)
   }
 }
